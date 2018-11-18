@@ -43,10 +43,13 @@ void loop()
 {
   SendData(message);
 
-  ReadData(receivedData);
-  char responseRequired = CalcResponse(receivedData);
-  SetMessage(responseRequired, message);
+  if (ReadData(receivedData)) {
+    PrintData(receivedData);
+    char responseRequired = CalcResponse(receivedData);
+    SetMessage(responseRequired, message);
+  }
 }
+
 void PrintData(byte readMsg[]) {
   for(int i = 0; i < MSG_LEN; i++)
   {
