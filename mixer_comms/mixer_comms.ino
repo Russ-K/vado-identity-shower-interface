@@ -1,34 +1,75 @@
-long baudRate = 8752;
-byte serialConfig = SERIAL_8N1;
 
+/////////////////////////////////////////////////////////////////
+//Transmission Details
+//RS485 Control
 #define TxControlMixer      3   //RS485 Direction control
 #define RS485Transmit       HIGH
 #define RS485Receive        LOW
 
+//Transmission config
+long baudRate = 8752;
+byte serialConfig = SERIAL_8N1;
+//Transmission Details
+/////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////
+//Timing
 long unsigned lastCom = 0;
 long unsigned curMicros = 0;
 const unsigned long comPeriod = 55000;
 const int bitLen = 10;
 
+const long unsigned DEDICATED_READ_TIME = 20;
+long unsigned msReadEnd = 0;
+//Timing
+/////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////
+//Message Length
 const int MSG_LEN = 7;
+/////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////
+//Outgoing message details
+//Outgoing messages
 const byte MSG_INTRO[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const byte MSG_STARTUP_A[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x21};
 const byte MSG_STARTUP_B[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x53};
 const byte MSG_HEARTBEAT[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16};
 const byte MSG_REST[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x51};
-byte message[MSG_LEN];
-byte receivedData[MSG_LEN];
-
-const long unsigned DEDICATED_READ_TIME = 20;
-long unsigned msReadEnd = 0;
-
+//Outgoing message types
 const char INTRO = 0;
 const char STARTUP_A = 1;
 const char STARTUP_B = 2;
 const char HEARTBEAT = 3;
 const char REST = 4;
-
+//Outgoing message type
 char curMsg = INTRO;
+//Outgoing register
+byte message[MSG_LEN];
+//Outgoing message details
+/////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////
+//Controller message details
+//Message byte positions
+const char CONT_BYTE_1 = 0;
+const char CONT_BYTE_2 = 1;
+const char CONT_BYTE_3 = 2;
+const char CONT_BYTE_4 = 3;
+const char CONT_BYTE_5 = 4;
+const char CONT_BYTE_LIVE = 5;
+const char CONT_BYTE_END = 6;
+//Message meanings
+const char CONT_ALIVE = 2;
+//Incoming register
+byte receivedData[MSG_LEN];
+//Controller message details
+/////////////////////////////////////////////////////////////////
 
 void setup() {
   Serial.begin(9600, serialConfig);
