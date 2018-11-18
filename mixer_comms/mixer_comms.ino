@@ -131,8 +131,8 @@ void SendData(byte sendMsg[]) {
     for (int i = 0; i < MSG_LEN; ++i) {
       Serial1.write(sendMsg[i]);
     }
-    //delayMicroseconds(bitLen);
-    //digitalWrite(TxControlMixer, RS485Receive);  // Enable RS485 Transmit
+    Serial1.flush();
+    digitalWrite(TxControlMixer, RS485Receive);  // Enable RS485 Receive
   }
 }
 
