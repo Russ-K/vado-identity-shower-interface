@@ -108,15 +108,19 @@ char CalcResponse(byte readMsg[]) {
 }
 
 void SetMessage(char required, byte setMsg[]) {
-  if (curMsg != required) {
     switch(required) {
+    case HEARTBEAT:
+      memcpy(setMsg, MSG_HEARTBEAT, MSG_LEN);
+      break;
+    case REST:
+      memcpy(setMsg, MSG_REST, MSG_LEN);
+      break;
       case INTRO:
       default:
         memcpy(setMsg, MSG_INTRO, MSG_LEN);
         break;
     }
   }
-}
 
 void SendData(byte sendMsg[]) {
   curMicros = micros();
