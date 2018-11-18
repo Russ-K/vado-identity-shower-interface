@@ -67,11 +67,13 @@ char CalcResponse(byte readMsg[]) {
 }
 
 void SetMessage(char required, byte setMsg[]) {
-  switch(required) {
-    case INTRO:
-    default:
-      memcpy(setMsg, MSG_INTRO, MSG_LEN);
-      break;
+  if (curMsg != required) {
+    switch(required) {
+      case INTRO:
+      default:
+        memcpy(setMsg, MSG_INTRO, MSG_LEN);
+        break;
+    }
   }
 }
 
