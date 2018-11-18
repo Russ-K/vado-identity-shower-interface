@@ -104,23 +104,34 @@ void PrintData(byte readMsg[]) {
 }
 
 char CalcResponse(byte readMsg[]) {
+  if (readMsg[CONT_BYTE_LIVE] == CONT_ALIVE) {
+    if (curMsg == HEARTBEAT) {
+      //Serial.println("REST");
+      return REST;
+    }
+    else {
+      //Serial.println("HEARTBEAT");
+      return HEARTBEAT;
+    }
+  }
+
   return INTRO;
 }
 
 void SetMessage(char required, byte setMsg[]) {
-    switch(required) {
+  switch(required) {
     case HEARTBEAT:
       memcpy(setMsg, MSG_HEARTBEAT, MSG_LEN);
       break;
     case REST:
       memcpy(setMsg, MSG_REST, MSG_LEN);
       break;
-      case INTRO:
-      default:
-        memcpy(setMsg, MSG_INTRO, MSG_LEN);
-        break;
-    }
+    case INTRO:
+    default:
+      memcpy(setMsg, MSG_INTRO, MSG_LEN);
+      break;
   }
+}
 
 void SendData(byte sendMsg[]) {
   curMicros = micros();
