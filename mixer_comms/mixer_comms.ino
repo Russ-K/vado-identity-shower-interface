@@ -87,7 +87,7 @@ void loop()
   SendData(message);
 
   if (ReadData(receivedData)) {
-    PrintData(receivedData);
+    //PrintData(receivedData);
     curMsg = CalcResponse(receivedData);
   }
 
