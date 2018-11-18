@@ -47,6 +47,14 @@ void loop()
   char responseRequired = CalcResponse(receivedData);
   SetMessage(responseRequired, message);
 }
+void PrintData(byte readMsg[]) {
+  for(int i = 0; i < MSG_LEN; i++)
+  {
+    Serial.print(readMsg[i], HEX);
+    Serial.print(" ");
+  }
+  Serial.println("");
+}
 
 char CalcResponse(byte readMsg[]) {
   return INTRO;
