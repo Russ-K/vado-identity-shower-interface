@@ -28,6 +28,8 @@ const char STARTUP_B = 2;
 const char HEARTBEAT = 3;
 const char REST = 4;
 
+char curMsg = INTRO;
+
 void setup() {
   Serial.begin(9600, serialConfig);
   Serial1.begin(baudRate, serialConfig);
@@ -45,9 +47,10 @@ void loop()
 
   if (ReadData(receivedData)) {
     PrintData(receivedData);
-    char responseRequired = CalcResponse(receivedData);
-    SetMessage(responseRequired, message);
+    curMsg = CalcResponse(receivedData);
   }
+
+  SetMessage(curMsg, message);
 }
 
 void PrintData(byte readMsg[]) {
