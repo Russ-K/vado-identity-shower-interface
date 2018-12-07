@@ -34,10 +34,10 @@ const byte MSG_HEARTBEAT[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D}; 
 const byte MSG_READY[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
 //Outgoing message types
 const char INTRO = 0;
-const char STARTUP_A = 1;
-const char STARTUP_B = 2;
+const char STARTUP = 1;
+const char PREPARING = 2;
 const char HEARTBEAT = 3;
-const char REST = 4;
+const char READY = 4;
 //Outgoing message type
 char curMsg = INTRO;
 //Outgoing register
@@ -110,7 +110,7 @@ char CalcResponse(byte readMsg[]) {
           handshakeRequired = false;
         case 1:
         case 3:
-          return MSG_PREPARING;
+          return PREPARING;
           break;
         default:
           return INTRO;
@@ -129,7 +129,7 @@ char CalcResponse(byte readMsg[]) {
           startupRequired = false;
         case 1:
         case 3:
-          return MSG_PREPARING;
+          return PREPARING;
           break;
         default:
           return INTRO;
@@ -139,7 +139,7 @@ char CalcResponse(byte readMsg[]) {
     
     if (curMsg == HEARTBEAT) {
       //Serial.println("REST");
-      return MSG_READY;
+      return READY;
     }
     else {
       //Serial.println("HEARTBEAT");
@@ -155,14 +155,14 @@ void SetMessage(char required, byte setMsg[]) {
     case HEARTBEAT:
       memcpy(setMsg, MSG_HEARTBEAT, MSG_LEN);
       break;
-    case REST:
-      memcpy(setMsg, MSG_REST, MSG_LEN);
+    case READY:
+      memcpy(setMsg, MSG_READY, MSG_LEN);
       break;
-    case STARTUP_A:
-      memcpy(setMsg, MSG_STARTUP_A, MSG_LEN);
+    case STARTUP:
+      memcpy(setMsg, MSG_STARTUP, MSG_LEN);
       break;
-    case STARTUP_B:
-      memcpy(setMsg, MSG_STARTUP_B, MSG_LEN);
+    case PREPARING:
+      memcpy(setMsg, MSG_PREPARING, MSG_LEN);
       break;
     case INTRO:
     default:
