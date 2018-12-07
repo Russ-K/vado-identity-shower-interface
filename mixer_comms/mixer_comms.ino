@@ -28,10 +28,10 @@ const int MSG_LEN = 7;
 //Outgoing message details
 //Outgoing messages
 const byte MSG_INTRO[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const byte MSG_STARTUP_A[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x21};
-const byte MSG_STARTUP_B[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x53};
-const byte MSG_HEARTBEAT[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16};
-const byte MSG_REST[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x51};
+const byte MSG_STARTUP[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x41};
+const byte MSG_PREPARING[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB3};
+const byte MSG_HEARTBEAT[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D}; //it might be that this should be the current mixer water temperature
+const byte MSG_READY[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
 //Outgoing message types
 const char INTRO = 0;
 const char STARTUP_A = 1;
@@ -104,13 +104,13 @@ char CalcResponse(byte readMsg[]) {
         case 0:
         case 2:
         case 4:
-          return STARTUP_A;
+          return STARTUP;
           break;
         case 5:
           handshakeRequired = false;
         case 1:
         case 3:
-          return STARTUP_B;
+          return MSG_PREPARING;
           break;
         default:
           return INTRO;
@@ -129,7 +129,7 @@ char CalcResponse(byte readMsg[]) {
           startupRequired = false;
         case 1:
         case 3:
-          return STARTUP_B;
+          return MSG_PREPARING;
           break;
         default:
           return INTRO;
@@ -139,7 +139,7 @@ char CalcResponse(byte readMsg[]) {
     
     if (curMsg == HEARTBEAT) {
       //Serial.println("REST");
-      return REST;
+      return MSG_READY;
     }
     else {
       //Serial.println("HEARTBEAT");
