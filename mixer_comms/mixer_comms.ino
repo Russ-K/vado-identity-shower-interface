@@ -1,11 +1,3 @@
-
-/////////////////////////////////////////////////////////////////
-//Transmission Details
-//RS485 Control
-#define TxControlMixer      3   //RS485 Direction control
-#define RS485Transmit       HIGH
-#define RS485Receive        LOW
-
 //Transmission config
 long baudRate = 9600;
 byte serialConfig = SERIAL_8O1;
@@ -82,10 +74,6 @@ void setup() {
   Serial1.begin(baudRate, serialConfig);
 
   memcpy(message, MSG_INTRO, MSG_LEN);
-
-  // Init Transceiver
-  pinMode(TxControlMixer, OUTPUT);
-  digitalWrite(TxControlMixer, RS485Receive);
 }
 
 void loop()
@@ -187,10 +175,7 @@ void SendData(byte sendMsg[]) {
   curMicros = micros();
   if ((curMicros > (lastCom + comPeriod)) || (curMicros < lastCom)) {
     lastCom = curMicros;
-
-    digitalWrite(TxControlMixer, RS485Transmit);  // Enable RS485 Transmit
     Serial1.write(sendMsg, MSG_LEN);
-    digitalWrite(TxControlMixer, RS485Receive);  // Enable RS485 Receive
   }
 }
 
