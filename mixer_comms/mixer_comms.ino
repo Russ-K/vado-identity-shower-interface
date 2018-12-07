@@ -70,7 +70,7 @@ byte receivedData[MSG_LEN];
 /////////////////////////////////////////////////////////////////
 
 void setup() {
-  Serial.begin(9600, serialConfig);
+  Serial.begin(baudRate, serialConfig);
   Serial1.begin(baudRate, serialConfig);
 
   memcpy(message, MSG_INTRO, MSG_LEN);
