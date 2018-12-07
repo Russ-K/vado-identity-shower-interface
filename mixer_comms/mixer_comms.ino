@@ -57,10 +57,10 @@ int startupStage = 0;
 //Message byte positions
 const char CONT_BYTE_1 = 0;
 const char CONT_BYTE_2 = 1;
-const char CONT_BYTE_3 = 2;
-const char CONT_BYTE_4 = 3;
-const char CONT_BYTE_5 = 4;
-const char CONT_BYTE_LIVE = 5;
+const char CONT_BYTE_POWER = 2;
+const char CONT_BYTE_TEMP = 3;
+const char CONT_BYTE_FLOW = 4;
+const char CONT_BYTE_OUTLET = 5;
 const char CONT_BYTE_END = 6;
 //Message meanings
 const char CONT_ALIVE = 2;
@@ -98,7 +98,7 @@ void PrintData(byte readMsg[]) {
 }
 
 char CalcResponse(byte readMsg[]) {
-  if (readMsg[CONT_BYTE_LIVE] == CONT_ALIVE) {
+  if (readMsg[CONT_BYTE_OUTLET] == CONT_ALIVE) {
     if (handshakeRequired) {
       switch(handshakeStage++) {
         case 0:
