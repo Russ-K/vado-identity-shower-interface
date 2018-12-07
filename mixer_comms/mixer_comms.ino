@@ -7,8 +7,8 @@
 #define RS485Receive        LOW
 
 //Transmission config
-long baudRate = 8752;
-byte serialConfig = SERIAL_8N1;
+long baudRate = 9600;
+byte serialConfig = SERIAL_8O1;
 //Transmission Details
 /////////////////////////////////////////////////////////////////
 
