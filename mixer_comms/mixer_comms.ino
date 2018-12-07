@@ -139,10 +139,7 @@ void SendData(byte sendMsg[]) {
     lastCom = curMicros;
 
     digitalWrite(TxControlMixer, RS485Transmit);  // Enable RS485 Transmit
-    for (int i = 0; i < MSG_LEN; ++i) {
-      Serial1.write(sendMsg[i]);
-    }
-    Serial1.flush();
+    Serial1.write(sendMsg, MSG_LEN);
     digitalWrite(TxControlMixer, RS485Receive);  // Enable RS485 Receive
   }
 }
