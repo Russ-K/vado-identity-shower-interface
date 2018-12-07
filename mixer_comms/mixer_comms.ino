@@ -50,6 +50,12 @@ const char REST = 4;
 char curMsg = INTRO;
 //Outgoing register
 byte message[MSG_LEN];
+//Handshaking
+bool handshakeRequired = true;
+int handshakeStage = 0;
+//Startup
+bool startupRequired = true;
+int startupStage = 0;
 //Outgoing message details
 /////////////////////////////////////////////////////////////////
 
@@ -105,6 +111,44 @@ void PrintData(byte readMsg[]) {
 
 char CalcResponse(byte readMsg[]) {
   if (readMsg[CONT_BYTE_LIVE] == CONT_ALIVE) {
+    if (handshakeRequired) {
+      switch(handshakeStage++) {
+        case 0:
+        case 2:
+        case 4:
+          return STARTUP_A;
+          break;
+        case 5:
+          handshakeRequired = false;
+        case 1:
+        case 3:
+          return STARTUP_B;
+          break;
+        default:
+          return INTRO;
+          break;
+      }
+    }
+
+    if (startupRequired) {
+      switch(startupStage++) {
+        case 0:
+        case 2:
+        case 4:
+          return HEARTBEAT;
+          break;
+        case 5:
+          startupRequired = false;
+        case 1:
+        case 3:
+          return STARTUP_B;
+          break;
+        default:
+          return INTRO;
+          break;
+      }
+    }
+    
     if (curMsg == HEARTBEAT) {
       //Serial.println("REST");
       return REST;
@@ -125,6 +169,12 @@ void SetMessage(char required, byte setMsg[]) {
       break;
     case REST:
       memcpy(setMsg, MSG_REST, MSG_LEN);
+      break;
+    case STARTUP_A:
+      memcpy(setMsg, MSG_STARTUP_A, MSG_LEN);
+      break;
+    case STARTUP_B:
+      memcpy(setMsg, MSG_STARTUP_B, MSG_LEN);
       break;
     case INTRO:
     default:
