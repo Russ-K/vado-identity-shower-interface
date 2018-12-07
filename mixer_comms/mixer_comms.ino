@@ -17,7 +17,7 @@ byte serialConfig = SERIAL_8O1;
 //Timing
 long unsigned lastCom = 0;
 long unsigned curMicros = 0;
-const unsigned long comPeriod = 55000;
+const unsigned long comPeriod = 55240; //should 55240 - 55280 - Arduino is not perfect at timing so 55240 seems to equate to roughly 55260
 const int bitLen = 10;
 
 const long unsigned DEDICATED_READ_TIME = 20;
