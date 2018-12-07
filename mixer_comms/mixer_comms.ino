@@ -1,6 +1,6 @@
 //Transmission config
 long baudRate = 9600;
-byte serialConfig = SERIAL_8O1;
+byte serialConfig = SERIAL_8N2;
 //Transmission Details
 /////////////////////////////////////////////////////////////////
 
@@ -66,6 +66,7 @@ const char CONT_BYTE_END = 6;
 const char CONT_ALIVE = 2;
 //Incoming register
 byte receivedData[MSG_LEN];
+int nCurByte = 0;
 //Controller message details
 /////////////////////////////////////////////////////////////////
 
@@ -80,25 +81,25 @@ void loop()
 {
   SendData(message);
 
-  if (ReadData(receivedData)) {
-    //PrintData(receivedData);
-    curMsg = CalcResponse(receivedData);
+  if (ReadData()) {
+    PrintData();
+    curMsg = CalcResponse();
   }
 
   SetMessage(curMsg, message);
 }
 
-void PrintData(byte readMsg[]) {
+void PrintData() {
   for(int i = 0; i < MSG_LEN; i++)
   {
-    Serial.print(readMsg[i], HEX);
+    Serial.print(receivedData[i], HEX);
     Serial.print(" ");
   }
   Serial.println("");
 }
 
-char CalcResponse(byte readMsg[]) {
-  if (readMsg[CONT_BYTE_OUTLET] == CONT_ALIVE) {
+char CalcResponse() {
+  if (receivedData[CONT_BYTE_OUTLET] == CONT_ALIVE) {
     if (handshakeRequired) {
       switch(handshakeStage++) {
         case 0:
@@ -179,23 +180,14 @@ void SendData(byte sendMsg[]) {
   }
 }
 
-bool ReadData(byte readMsg[]) {
-  bool foundData = false;
-  if (Serial1.available() > 0) {
-    msReadEnd = millis() + DEDICATED_READ_TIME;
-  
-    int nCurByte = 0;
-    while (msReadEnd > millis()) {
-      if (Serial1.available() > 0) {
-        // read the incoming byte:
-        readMsg[nCurByte++] = Serial1.read();
-      }
+bool ReadData() {
+  while (Serial1.available() > 0) {
+    receivedData[nCurByte++] = Serial1.read();
 
-      if (nCurByte >= MSG_LEN) {
-        nCurByte = 0;
-        foundData = true;
-      }
+    if (nCurByte >= MSG_LEN) {
+      nCurByte = 0;
+      return true;
     }
   }
-  return foundData;
+  return false;
 }
