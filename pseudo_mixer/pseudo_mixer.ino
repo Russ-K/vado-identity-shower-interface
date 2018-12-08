@@ -75,12 +75,47 @@ void loop()
 }
 
 void PrintData() {
-  for(int i = 0; i < MSG_LEN; i++)
-  {
-    Serial.print(receivedData[i], HEX);
-    Serial.print(" ");
+  static bool bOn = false;
+  static bool bPaused = false;
+  static int temp = 0;
+  static int flow = 0;
+  static int outlet = 0;
+
+  bool stateChanged = false;
+  if (controller.isOn() != bOn) {
+    bOn = controller.isOn();
+    stateChanged = true;
   }
-  Serial.println("");
+  if (controller.isPaused() != bPaused) {
+    bPaused = controller.isPaused();
+    stateChanged = true;
+  }
+  if (controller.temp() != temp) {
+    temp = controller.temp();
+    stateChanged = true;
+  }
+  if (controller.flow() != flow) {
+    flow = controller.flow();
+    stateChanged = true;
+  }
+  if (controller.isMainOutlet() != outlet) {
+    outlet = controller.isMainOutlet();
+    stateChanged = true;
+  }
+
+  if (stateChanged) {
+    Serial.println("State changed");
+    Serial.print("Power is ");
+    Serial.println(bOn ? "on" : bPaused ? "paused" : "off");
+    
+    Serial.print("Temp is ");
+    Serial.println(temp);
+    Serial.print("Flow is ");
+    Serial.println(flow);
+    Serial.print("Outlet is ");
+    Serial.println(outlet);
+    Serial.println("");
+  }
 }
 
 char CalcResponse() {
