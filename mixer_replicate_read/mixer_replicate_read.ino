@@ -5,23 +5,8 @@ byte serialConfig = SERIAL_8N1;
 #define RS485Transmit       HIGH
 #define RS485Receive        LOW
 
-long unsigned lastCom = 0;
-long unsigned curMicros = 0;
-const unsigned long comPeriod = 55000;
-const int bitLen = 10;
-
 const int nMsgLen = 7;
-const byte messageIntro[nMsgLen] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const byte messageStartup1[nMsgLen] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x21};
-const byte messageStartup2[nMsgLen] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x53};
-const byte messageHearbeat[nMsgLen] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16};
-const byte messageRest[nMsgLen] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x51};
-
 byte receivedData[nMsgLen];
-
-byte message[nMsgLen];
-
-int nMsg = 0;
 
 const long unsigned DEDICATED_READ_TIME = 20;
 long unsigned msReadEnd = 0;
