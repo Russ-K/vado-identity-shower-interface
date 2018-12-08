@@ -1,6 +1,6 @@
 /*
-  Morse.cpp - Library for flashing Morse code.
-  Created by David A. Mellis, November 2, 2007.
+  vado_controller.h - Library for parsing and validating data packets from a Vado Identity Controller
+  Created by Russell Keane, December 8, 2018.
   Released into the public domain.
 */
 
