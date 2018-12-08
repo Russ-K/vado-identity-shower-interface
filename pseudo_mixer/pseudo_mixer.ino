@@ -1,6 +1,9 @@
 //Transmission config
 long baudRate = 9600;
 byte serialConfig = SERIAL_8N2;
+
+//max expected time for reading data
+const int MAX_READ_TIME = 10;
 //Transmission Details
 /////////////////////////////////////////////////////////////////
 
@@ -73,6 +76,8 @@ int nCurByte = 0;
 void setup() {
   Serial.begin(baudRate, serialConfig);
   Serial1.begin(baudRate, serialConfig);
+
+  Serial.setTimeout(MAX_READ_TIME);
 
   memcpy(message, MSG_INTRO, MSG_LEN);
 }
@@ -181,13 +186,9 @@ void SendData(byte sendMsg[]) {
 }
 
 bool ReadData() {
-  while (Serial1.available() > 0) {
-    receivedData[nCurByte++] = Serial1.read();
-
-    if (nCurByte >= MSG_LEN) {
-      nCurByte = 0;
-      return true;
-    }
+  if (Serial1.available() > 0) {
+    return MSG_LEN == Serial1.readBytes(receivedData, MSG_LEN);
   }
+
   return false;
 }
