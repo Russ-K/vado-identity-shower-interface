@@ -26,18 +26,6 @@ const unsigned long comPeriod = 55240; //should 55240 - 55280 - Arduino is not p
 
 /////////////////////////////////////////////////////////////////
 //Outgoing message details
-//Outgoing messages
-const byte MSG_INTRO[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const byte MSG_PREPARING[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB3};
-const byte MSG_HEARTBEAT[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D}; //it might be that this should be the current mixer water temperature
-const byte MSG_READY[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
-//Outgoing message types
-const char INTRO = 0;
-const char PREPARING = 2;
-const char HEARTBEAT = 3;
-const char READY = 4;
-//Outgoing message type
-char curMsg = INTRO;
 //Outgoing register
 byte message[MSG_LEN];
 //Outgoing message details
@@ -52,27 +40,24 @@ int nCurByte = 0;
 /////////////////////////////////////////////////////////////////
 
 Controller controller;
+Mixer mixer;
 
 void setup() {
   Serial.begin(baudRate, serialConfig);
   Serial1.begin(baudRate, serialConfig);
 
   Serial.setTimeout(MAX_READ_TIME);
-
-  memcpy(message, MSG_INTRO, MSG_LEN);
 }
 
 void loop()
 {
-  SendData(message);
-
   if (ReadData()) {
     controller.parse(receivedData);
     PrintData();
-    curMsg = CalcResponse();
   }
 
-  SetMessage(curMsg, message);
+  mixer.GetResponse(controller, message);
+  SendData(message);
 }
 
 void PrintData() {
@@ -116,37 +101,6 @@ void PrintData() {
     Serial.print("Outlet is ");
     Serial.println(outlet);
     Serial.println("");
-  }
-}
-
-char CalcResponse() {
-  if (controller.isValid()) {
-    if (curMsg == HEARTBEAT) {
-      return READY;
-    }
-    else {
-      return HEARTBEAT;
-    }
-  }
-
-  return INTRO;
-}
-
-void SetMessage(char required, byte setMsg[]) {
-  switch(required) {
-    case HEARTBEAT:
-      memcpy(setMsg, MSG_HEARTBEAT, MSG_LEN);
-      break;
-    case READY:
-      memcpy(setMsg, MSG_READY, MSG_LEN);
-      break;
-    case PREPARING:
-      memcpy(setMsg, MSG_PREPARING, MSG_LEN);
-      break;
-    case INTRO:
-    default:
-      memcpy(setMsg, MSG_INTRO, MSG_LEN);
-      break;
   }
 }
 

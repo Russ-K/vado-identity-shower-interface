@@ -7,6 +7,51 @@
 #include "Arduino.h"
 #include "mixer.h"
 
+
+const byte Mixer::MSG_INTRO[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+const byte Mixer::MSG_PREPARING[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB3};
+const byte Mixer::MSG_HEARTBEAT[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D}; //it might be that this should be the current mixer water temperature
+const byte Mixer::MSG_READY[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
+
 Mixer::Mixer()
 {
+}
+
+bool Mixer::GetResponse(Controller controller, byte setMsg[])
+{
+    _curMsg = CalcResponse(controller);
+    SetMessage(_curMsg, setMsg);
+}
+
+char Mixer::CalcResponse(Controller controller)
+{
+  if (controller.isValid()) {
+    if (_curMsg == HEARTBEAT) {
+      return READY;
+    }
+    else {
+      return HEARTBEAT;
+    }
+  }
+
+  return INTRO;
+}
+
+void Mixer::SetMessage(char required, byte setMsg[])
+{
+  switch(required) {
+    case HEARTBEAT:
+      memcpy(setMsg, Mixer::MSG_HEARTBEAT, MSG_LEN);
+      break;
+    case READY:
+      memcpy(setMsg, Mixer::MSG_READY, MSG_LEN);
+      break;
+    case PREPARING:
+      memcpy(setMsg, Mixer::MSG_PREPARING, MSG_LEN);
+      break;
+    case INTRO:
+    default:
+      memcpy(setMsg, Mixer::MSG_INTRO, MSG_LEN);
+      break;
+  }
 }
