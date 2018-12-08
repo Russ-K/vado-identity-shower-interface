@@ -2,6 +2,8 @@
 
 Arduino program to interact with the Vado Identity IDE-147A-C/P / SENSORI Identity IDE-147C-C/P
 
+The projects herein assume the use of an arduino mega as it allows for communication with the vado unit while also being able to write to the serial monitor
+
 ## Projects
 
 There are 3 projects in this repo:
@@ -25,14 +27,31 @@ This is a very simple project for working with, and simply reading data from, rs
 
 This is a simple project that transmits the handshake message that the Vado mixer would at the appropriate times and then reads the response from the controller and outputs the raw data to the serial monitor.
 
-## Useful Links
+## Tools Used
 
-The discussion about how I decoded the comms protocol can be found here - https://forum.arduino.cc/index.php?topic=564171
+* Arduino Mega
+* [Logic Analyser][logic_analyser]
+* [Final RS-485 module][final_rs485]
+* [Original RS-485 module][original_rs485]
 
-Useful information on the RS-485 communication standard - https://en.wikipedia.org/wiki/RS-485
+  [logic_analyser]: https://www.ebay.co.uk/sch/i.html?_nkw=24mhz+8+channel+usb+logic+analyzer+saleae+8ch+logic+analyzer
+  [final_rs485]: https://www.amazon.co.uk/gp/product/B07B667STP
+  [original_rs485]: https://www.amazon.co.uk/gp/product/B06XHHWLMW
 
-How to set up an arduino as an oscilloscope (it's not perfect but it will definitely get you started) - https://www.instructables.com/id/Oscilloscope-Arduino-Processing/
+## Other Useful Links
 
-How to determine an unknown baud rate - https://www.kumari.net/index.php/random/37-determing-unknown-baud-rate
+The discussion about how I decoded the comms protocol can be found [here][arduino_forum]
 
-Sigrok tool used to display / decode data from a logic analyser - https://sigrok.org/wiki/Protocol_decoder:Uart
+Useful information on the RS-485 communication standard - [Wikipedia][wiki_rs485]
+
+How to set up an arduino as an oscilloscope (it's not perfect but it will definitely get you started) - [Instructables][instructables_link]
+
+How to determine an unknown baud rate - [kumari.net][kumari]
+
+Sigrok tool used to display / decode data from a logic analyser - [Sigrok][sigrok_link]
+
+[arduino_forum]: https://forum.arduino.cc/index.php?topic=564171
+[wiki_rs485]: https://en.wikipedia.org/wiki/RS-485
+[instructables_link]: https://www.instructables.com/id/Oscilloscope-Arduino-Processing/
+[kumari]: https://www.kumari.net/index.php/random/37-determing-unknown-baud-rate
+[sigrok_link]: https://sigrok.org/wiki/Protocol_decoder:Uart
