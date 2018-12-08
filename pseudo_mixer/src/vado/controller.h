@@ -7,7 +7,7 @@
 #define vado_controller
 
 #include "Arduino.h"
-#include "vado_constants.h"
+#include "constants.h"
 
 class Controller
 {

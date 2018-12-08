@@ -5,7 +5,7 @@
 */
 
 #include "Arduino.h"
-#include "vado_controller.h"
+#include "controller.h"
 
 Controller::Controller()
 {
