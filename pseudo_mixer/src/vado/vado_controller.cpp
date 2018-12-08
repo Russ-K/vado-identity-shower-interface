@@ -13,10 +13,10 @@ Controller::Controller()
 
 void Controller::parse(const byte data [MSG_LEN])
 {
-    if (parsePower(data[CONT_BYTE_POWER]) &&
-            parseTemperature(data[CONT_BYTE_TEMP]) &&
-            parseFlow(data[CONT_BYTE_FLOW]) &&
-            parseOutlet(data[CONT_BYTE_OUTLET])) {
+    if (parsePower(data[BYTE_POWER]) &&
+            parseTemperature(data[BYTE_TEMP]) &&
+            parseFlow(data[BYTE_FLOW]) &&
+            parseOutlet(data[BYTE_OUTLET])) {
         _isValid = true;
     }
     else {
@@ -28,9 +28,9 @@ bool Controller::parsePower(const byte value)
 {
     bool valid = false;
     switch (value) {
-        case CONT_POWER_ON:
-        case CONT_POWER_OFF:
-        case CONT_POWER_PAUSED:
+        case POWER_ON:
+        case POWER_OFF:
+        case POWER_PAUSED:
             _power = value;
             valid = true;
             break;
@@ -44,7 +44,7 @@ bool Controller::parsePower(const byte value)
 bool Controller::parseTemperature(const byte value)
 {
     bool valid = false;
-    if (value >= CONT_TEMP_MIN && value <= CONT_TEMP_MAX) {
+    if (value >= TEMP_MIN && value <= TEMP_MAX) {
         _temperature = value - TEMP_OFFSET;
         valid = true;
     }
@@ -55,11 +55,11 @@ bool Controller::parseFlow(const byte value)
 {
     bool valid = false;
     switch (value) {
-        case CONT_FLOW_MIN :
-        case CONT_FLOW_LOW :
-        case CONT_FLOW_MED :
-        case CONT_FLOW_HIGH :
-        case CONT_FLOW_MAX :
+        case FLOW_MIN :
+        case FLOW_LOW :
+        case FLOW_MED :
+        case FLOW_HIGH :
+        case FLOW_MAX :
             _flow = value;
             valid = true;
             break;
@@ -74,8 +74,8 @@ bool Controller::parseOutlet(const byte value)
 {
     bool valid = false;
     switch (value) {
-        case CONT_OUTLET_DEFAULT:
-        case CONT_OUTLET_ALTERNATIVE:
+        case OUTLET_DEFAULT:
+        case OUTLET_ALTERNATIVE:
             _outlet = value;
             valid = true;
             break;
