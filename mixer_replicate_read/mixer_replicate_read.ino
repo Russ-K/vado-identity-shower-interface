@@ -1,5 +1,5 @@
-long baudRate = 8752;
-byte serialConfig = SERIAL_8N1;
+long baudRate = 9600;
+byte serialConfig = SERIAL_8N2;
 
 #define TxControlMixer      3   //RS485 Direction control
 #define RS485Transmit       HIGH
