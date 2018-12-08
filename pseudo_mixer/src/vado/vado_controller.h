@@ -30,22 +30,22 @@ class Controller
 
     //Controller message details
     //Message byte positions
-    const char CONT_BYTE_1 = 0;
-    const char CONT_BYTE_2 = 1;
-    const char CONT_BYTE_POWER = 2;
-    const char CONT_BYTE_TEMP = 3;
-    const char CONT_BYTE_FLOW = 4;
-    const char CONT_BYTE_OUTLET = 5;
-    const char CONT_BYTE_END = 6;
+    static const byte CONT_BYTE_1 = 0;
+    static const byte CONT_BYTE_2 = 1;
+    static const byte CONT_BYTE_POWER = 2;
+    static const byte CONT_BYTE_TEMP = 3;
+    static const byte CONT_BYTE_FLOW = 4;
+    static const byte CONT_BYTE_OUTLET = 5;
+    static const byte CONT_BYTE_END = 6;
 
     //Power definitions
-    const byte CONT_POWER_ON = 0x01;
-    const char CONT_POWER_OFF = 0x02;
-    const char CONT_POWER_PAUSED = 0x03;
+    static const byte CONT_POWER_ON = 0x01;
+    static const byte CONT_POWER_OFF = 0x02;
+    static const byte CONT_POWER_PAUSED = 0x03;
 
     //Outlet definitions
-    const byte CONT_OUTLET_DEFAULT = 0x02;
-    const char CONT_OUTLET_ALTERNATIVE = 0x01;
+    static const byte CONT_OUTLET_DEFAULT = 0x02;
+    static const byte CONT_OUTLET_ALTERNATIVE = 0x01;
 };
 
 #endif
