@@ -29,11 +29,12 @@ This is a simple project that transmits the handshake message that the Vado mixe
 
 ## Tools Used
 
-* Arduino Mega
+* [Arduino Mega][arduino_mega]
 * [Logic Analyser][logic_analyser]
 * [Final RS-485 module][final_rs485]
 * [Original RS-485 module][original_rs485]
 
+  [arduino_mega]: https://store.arduino.cc/arduino-mega-2560-rev3
   [logic_analyser]: https://www.ebay.co.uk/sch/i.html?_nkw=24mhz+8+channel+usb+logic+analyzer+saleae+8ch+logic+analyzer
   [final_rs485]: https://www.amazon.co.uk/gp/product/B07B667STP
   [original_rs485]: https://www.amazon.co.uk/gp/product/B06XHHWLMW
