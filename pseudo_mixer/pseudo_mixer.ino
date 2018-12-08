@@ -12,6 +12,7 @@ const int MAX_READ_TIME = 10;
 
 /////////////////////////////////////////////////////////////////
 //Timing
+//Vars used to ensure signals are sent at the correct times to the controller
 long unsigned lastCom = 0;
 long unsigned curMicros = 0;
 const unsigned long comPeriod = 55240; //should 55240 - 55280 - Arduino is not perfect at timing so 55240 seems to equate to roughly 55260
