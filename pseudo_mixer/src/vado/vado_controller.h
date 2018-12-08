@@ -16,9 +16,16 @@ class Controller
     void parse(const byte[MSG_LEN]);
     bool isValid() { return _isValid; }
 
+    //Power
     bool isOn() { return isValid() && _power == POWER_ON; }
     bool isPaused() { return isValid() && _power == POWER_PAUSED; }
+    //Temp
     int temp() { return isValid() && _temperature <= TEMP_MAX_C ? _temperature : TEMP_MIN_C; }
+    //Flow
+    int flow() { return isValid() ? _flow : FLOW_MIN; }
+    //Outlet
+    int isMainOutlet() { return isValid() ? _outlet : OUTLET_DEFAULT; }
+    
   private:
     bool _isValid;
 
