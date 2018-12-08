@@ -78,6 +78,7 @@ void loop()
   SendData(message);
 
   if (ReadData()) {
+    controller.parse(receivedData);
     PrintData();
     curMsg = CalcResponse();
   }
