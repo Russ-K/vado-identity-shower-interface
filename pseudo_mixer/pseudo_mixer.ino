@@ -1,3 +1,5 @@
+#include "src/vado/vado_controller.h"
+
 /////////////////////////////////////////////////////////////////
 //Transmission Details
 //Serial config
@@ -19,11 +21,6 @@ const unsigned long comPeriod = 55240; //should 55240 - 55280 - Arduino is not p
 //Timing
 /////////////////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////////////////////
-//Message Length
-const int MSG_LEN = 7;
-/////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////
@@ -47,23 +44,13 @@ byte message[MSG_LEN];
 
 
 /////////////////////////////////////////////////////////////////
-//Controller message details
-//Message byte positions
-const char CONT_BYTE_1 = 0;
-const char CONT_BYTE_2 = 1;
-const char CONT_BYTE_POWER = 2;
-const char CONT_BYTE_TEMP = 3;
-const char CONT_BYTE_FLOW = 4;
-const char CONT_BYTE_OUTLET = 5;
-const char CONT_BYTE_END = 6;
-//Message meanings
-const byte CONT_OUTLET_DEFAULT = 0x02;
-const char CONT_OUTLET_ALTERNATIVE = 0x01;
 //Incoming register
 byte receivedData[MSG_LEN];
 int nCurByte = 0;
 //Controller message details
 /////////////////////////////////////////////////////////////////
+
+Controller controller;
 
 void setup() {
   Serial.begin(baudRate, serialConfig);
@@ -79,6 +66,7 @@ void loop()
   SendData(message);
 
   if (ReadData()) {
+    controller.parse(receivedData);
     PrintData();
     curMsg = CalcResponse();
   }
@@ -96,7 +84,7 @@ void PrintData() {
 }
 
 char CalcResponse() {
-  if (receivedData[CONT_BYTE_OUTLET] == CONT_OUTLET_DEFAULT || receivedData[CONT_BYTE_OUTLET] == CONT_OUTLET_ALTERNATIVE) {
+  if (controller.isValid()) {
     if (curMsg == HEARTBEAT) {
       return READY;
     }
