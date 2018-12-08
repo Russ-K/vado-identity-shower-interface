@@ -31,13 +31,11 @@ const int MSG_LEN = 7;
 //Outgoing message details
 //Outgoing messages
 const byte MSG_INTRO[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-const byte MSG_STARTUP[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x41};
 const byte MSG_PREPARING[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB3};
 const byte MSG_HEARTBEAT[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D}; //it might be that this should be the current mixer water temperature
 const byte MSG_READY[MSG_LEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
 //Outgoing message types
 const char INTRO = 0;
-const char STARTUP = 1;
 const char PREPARING = 2;
 const char HEARTBEAT = 3;
 const char READY = 4;
@@ -45,12 +43,6 @@ const char READY = 4;
 char curMsg = INTRO;
 //Outgoing register
 byte message[MSG_LEN];
-//Handshaking
-bool handshakeRequired = true;
-int handshakeStage = 0;
-//Startup
-bool startupRequired = true;
-int startupStage = 0;
 //Outgoing message details
 /////////////////////////////////////////////////////////////////
 
@@ -106,44 +98,6 @@ void PrintData() {
 
 char CalcResponse() {
   if (receivedData[CONT_BYTE_OUTLET] == CONT_OUTLET_DEFAULT || receivedData[CONT_BYTE_OUTLET] == CONT_OUTLET_ALTERNATIVE) {
-    if (handshakeRequired) {
-      switch(handshakeStage++) {
-        case 0:
-        case 2:
-        case 4:
-          return STARTUP;
-          break;
-        case 5:
-          handshakeRequired = false;
-        case 1:
-        case 3:
-          return PREPARING;
-          break;
-        default:
-          return INTRO;
-          break;
-      }
-    }
-
-    if (startupRequired) {
-      switch(startupStage++) {
-        case 0:
-        case 2:
-        case 4:
-          return HEARTBEAT;
-          break;
-        case 5:
-          startupRequired = false;
-        case 1:
-        case 3:
-          return PREPARING;
-          break;
-        default:
-          return INTRO;
-          break;
-      }
-    }
-    
     if (curMsg == HEARTBEAT) {
       //Serial.println("REST");
       return READY;
@@ -164,9 +118,6 @@ void SetMessage(char required, byte setMsg[]) {
       break;
     case READY:
       memcpy(setMsg, MSG_READY, MSG_LEN);
-      break;
-    case STARTUP:
-      memcpy(setMsg, MSG_STARTUP, MSG_LEN);
       break;
     case PREPARING:
       memcpy(setMsg, MSG_PREPARING, MSG_LEN);
