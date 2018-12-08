@@ -18,6 +18,7 @@ class Controller
 
     bool isOn() { return isValid() && _power == POWER_ON; }
     bool isPaused() { return isValid() && _power == POWER_PAUSED; }
+    int temp() { return isValid() && _temperature <= TEMP_MAX_C ? _temperature : TEMP_MIN_C; }
   private:
     bool _isValid;
 
@@ -48,8 +49,12 @@ class Controller
 
     //Temperature definitions
     static const int TEMP_OFFSET = 16; //the value sent from the controller is 16 higher than the deg C value
+    //Signal MIN and MAX
     static const byte TEMP_MIN = 0x29;
     static const byte TEMP_MAX = 0x3E;
+    //Converted MIN and MAX
+    static const byte TEMP_MIN_C = 25;
+    static const byte TEMP_MAX_C = 46;
 
     //Flow definition
     static const byte FLOW_MIN = 0x05;
