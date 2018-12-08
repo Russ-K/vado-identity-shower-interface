@@ -1,4 +1,5 @@
 #include "src/vado/controller.h"
+#include "src/vado/mixer.h"
 
 /////////////////////////////////////////////////////////////////
 //Transmission Details
