@@ -54,8 +54,16 @@ bool Controller::parseTemperature(const byte value)
 
 bool Controller::parseFlow(const byte value)
 {
-    bool valid = true;
+    bool valid = false;
     switch (value) {
+        case CONT_FLOW_MIN :
+        case CONT_FLOW_LOW :
+        case CONT_FLOW_MED :
+        case CONT_FLOW_HIGH :
+        case CONT_FLOW_MAX :
+            _flow = value;
+            valid = true;
+            break;
         default:
             _flow = 0;
             break;

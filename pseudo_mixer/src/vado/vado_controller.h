@@ -43,6 +43,13 @@ class Controller
     static const byte CONT_POWER_OFF = 0x02;
     static const byte CONT_POWER_PAUSED = 0x03;
 
+    //Flow definitions
+    static const byte CONT_FLOW_MIN = 0x05;
+    static const byte CONT_FLOW_LOW = 0x06;
+    static const byte CONT_FLOW_MED = 0x07;
+    static const byte CONT_FLOW_HIGH = 0x08;
+    static const byte CONT_FLOW_MAX = 0x09;
+
     //Outlet definitions
     static const byte CONT_OUTLET_DEFAULT = 0x02;
     static const byte CONT_OUTLET_ALTERNATIVE = 0x01;
