@@ -44,18 +44,6 @@ byte message[MSG_LEN];
 
 
 /////////////////////////////////////////////////////////////////
-//Controller message details
-//Message byte positions
-const char CONT_BYTE_1 = 0;
-const char CONT_BYTE_2 = 1;
-const char CONT_BYTE_POWER = 2;
-const char CONT_BYTE_TEMP = 3;
-const char CONT_BYTE_FLOW = 4;
-const char CONT_BYTE_OUTLET = 5;
-const char CONT_BYTE_END = 6;
-//Message meanings
-const byte CONT_OUTLET_DEFAULT = 0x02;
-const char CONT_OUTLET_ALTERNATIVE = 0x01;
 //Incoming register
 byte receivedData[MSG_LEN];
 int nCurByte = 0;
