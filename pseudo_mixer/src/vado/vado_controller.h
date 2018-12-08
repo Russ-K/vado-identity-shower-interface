@@ -14,7 +14,10 @@ class Controller
   public:
     Controller();
     void parse(const byte[MSG_LEN]);
-    bool isValid() {return _isValid;}
+    bool isValid() { return _isValid; }
+
+    bool isOn() { return isValid() && _power == POWER_ON; }
+    bool isPaused() { return isValid() && _power == POWER_PAUSED; }
   private:
     bool _isValid;
 
