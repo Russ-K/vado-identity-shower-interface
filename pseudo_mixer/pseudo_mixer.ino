@@ -1,4 +1,6 @@
-//Transmission config
+/////////////////////////////////////////////////////////////////
+//Transmission Details
+//Serial config
 long baudRate = 9600;
 byte serialConfig = SERIAL_8N2;
 
@@ -99,11 +101,9 @@ void PrintData() {
 char CalcResponse() {
   if (receivedData[CONT_BYTE_OUTLET] == CONT_OUTLET_DEFAULT || receivedData[CONT_BYTE_OUTLET] == CONT_OUTLET_ALTERNATIVE) {
     if (curMsg == HEARTBEAT) {
-      //Serial.println("REST");
       return READY;
     }
     else {
-      //Serial.println("HEARTBEAT");
       return HEARTBEAT;
     }
   }
@@ -141,6 +141,5 @@ bool ReadData() {
   if (Serial1.available() > 0) {
     return MSG_LEN == Serial1.readBytes(receivedData, MSG_LEN);
   }
-
   return false;
 }
