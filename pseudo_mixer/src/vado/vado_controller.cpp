@@ -43,11 +43,10 @@ bool Controller::parsePower(const byte value)
 
 bool Controller::parseTemperature(const byte value)
 {
-    bool valid = true;
-    switch (value) {
-        default:
-            _temperature = 0;
-            break;
+    bool valid = false;
+    if (value >= CONT_TEMP_MIN && value <= CONT_TEMP_MAX) {
+        _temperature = value - TEMP_OFFSET;
+        valid = true;
     }
     return valid;
 }
