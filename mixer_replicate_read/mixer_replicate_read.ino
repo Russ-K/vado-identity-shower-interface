@@ -12,7 +12,7 @@ const long unsigned DEDICATED_READ_TIME = 20;
 long unsigned msReadEnd = 0;
 
 void setup() {
-  Serial.begin(9600, serialConfig);
+  Serial.begin(baudRate, serialConfig);
   Serial1.begin(baudRate, serialConfig);
 
   // Init Transceiver
