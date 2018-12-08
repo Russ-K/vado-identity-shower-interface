@@ -62,6 +62,8 @@ int nCurByte = 0;
 //Controller message details
 /////////////////////////////////////////////////////////////////
 
+Controller controller;
+
 void setup() {
   Serial.begin(baudRate, serialConfig);
   Serial1.begin(baudRate, serialConfig);
