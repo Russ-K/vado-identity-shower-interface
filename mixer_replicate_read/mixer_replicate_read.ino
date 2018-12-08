@@ -16,7 +16,7 @@ void setup() {
   Serial1.begin(baudRate, serialConfig);
 
   // Init Transceiver
-  pinMode(TxControlMixer, OUTPUT);  
+  pinMode(TxControlMixer, OUTPUT);
   digitalWrite(TxControlMixer, RS485Receive);
 }
 
