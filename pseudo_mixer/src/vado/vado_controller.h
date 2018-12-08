@@ -43,6 +43,11 @@ class Controller
     static const byte CONT_POWER_OFF = 0x02;
     static const byte CONT_POWER_PAUSED = 0x03;
 
+    //Temperature definitions
+    static const int TEMP_OFFSET = 16; //the value sent from the controller is 16 higher than the deg C value
+    static const byte CONT_TEMP_MIN = 0x29;
+    static const byte CONT_TEMP_MAX = 0x3E;
+
     //Flow definitions
     static const byte CONT_FLOW_MIN = 0x05;
     static const byte CONT_FLOW_LOW = 0x06;
