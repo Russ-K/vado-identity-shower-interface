@@ -96,7 +96,7 @@ void PrintData() {
 }
 
 char CalcResponse() {
-  if (receivedData[CONT_BYTE_OUTLET] == CONT_OUTLET_DEFAULT || receivedData[CONT_BYTE_OUTLET] == CONT_OUTLET_ALTERNATIVE) {
+  if (controller.isValid()) {
     if (curMsg == HEARTBEAT) {
       return READY;
     }
