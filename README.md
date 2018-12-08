@@ -41,7 +41,7 @@ This is a simple project that transmits the handshake message that the Vado mixe
 
 ## Other Useful Links
 
-The discussion about how I decoded the comms protocol can be found [here][arduino_forum]
+The discussion about how I decoded the comms protocol can be found at the [Arduino Forum][arduino_forum]
 
 Useful information on the RS-485 communication standard - [Wikipedia][wiki_rs485]
 
