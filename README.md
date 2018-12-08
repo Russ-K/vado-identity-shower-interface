@@ -8,7 +8,7 @@ The projects herein assume the use of an arduino mega as it allows for communica
 
 There are 3 projects in this repo:
 
-* [psuedo_mixer](psuedo_mixer/psuedo_mixer.md)
+* [pseudo_mixer](pseudo_mixer/README.md)
 * rs485_read
 * simple_comms
 
