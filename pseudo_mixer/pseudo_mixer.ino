@@ -39,7 +39,6 @@ int nCurByte = 0;
 /////////////////////////////////////////////////////////////////
 
 Controller controller;
-ControllerState contState;
 Mixer mixer;
 
 void setup() {
@@ -52,7 +51,7 @@ void setup() {
 void loop()
 {
   if (ReadData()) {
-    contState = controller.parse(receivedData);
+    ControllerState contState = controller.parse(receivedData);
     if (contState.isValid() && controller.StateChanged(contState)) {
       controller.SetState(contState);
     }
