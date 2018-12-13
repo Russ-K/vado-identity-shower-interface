@@ -63,47 +63,17 @@ void loop()
 }
 
 void PrintData(ControllerState& newState) {
-  static bool bOn = false;
-  static bool bPaused = false;
-  static int temp = 0;
-  static int flow = 0;
-  static int outlet = 0;
-
-  bool stateChanged = false;
-  if (newState.isOn() != bOn) {
-    bOn = newState.isOn();
-    stateChanged = true;
-  }
-  if (newState.isPaused() != bPaused) {
-    bPaused = newState.isPaused();
-    stateChanged = true;
-  }
-  if (newState.temp() != temp) {
-    temp = newState.temp();
-    stateChanged = true;
-  }
-  if (newState.flow() != flow) {
-    flow = newState.flow();
-    stateChanged = true;
-  }
-  if (newState.isMainOutlet() != outlet) {
-    outlet = newState.isMainOutlet();
-    stateChanged = true;
-  }
-
-  if (stateChanged) {
-    Serial.println("State changed");
-    Serial.print("Power is ");
-    Serial.println(bOn ? "on" : bPaused ? "paused" : "off");
-    
-    Serial.print("Temp is ");
-    Serial.println(temp);
-    Serial.print("Flow is ");
-    Serial.println(flow);
-    Serial.print("Outlet is ");
-    Serial.println(outlet);
-    Serial.println("");
-  }
+  Serial.println("State changed");
+  Serial.print("Power is ");
+  Serial.println(newState.isOn() ? "on" : newState.isPaused() ? "paused" : "off");
+  
+  Serial.print("Temp is ");
+  Serial.println(newState.temp());
+  Serial.print("Flow is ");
+  Serial.println(newState.flow());
+  Serial.print("Outlet is ");
+  Serial.println(newState.isMainOutlet());
+  Serial.println("");
 }
 
 void SendData(byte sendMsg[]) {
