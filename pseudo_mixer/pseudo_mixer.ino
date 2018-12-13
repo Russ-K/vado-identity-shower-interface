@@ -19,6 +19,7 @@ const int MAX_READ_TIME = 10;
 long unsigned lastCom = 0;
 long unsigned curMicros = 0;
 const unsigned long comPeriod = 55240; //should 55240 - 55280 - Arduino is not perfect at timing so 55240 seems to equate to roughly 55260
+const long MIN_READ_MILLIS = 10;
 //Timing
 /////////////////////////////////////////////////////////////////
 
