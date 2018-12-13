@@ -51,12 +51,12 @@ void setup() {
 void loop()
 {
   if (ReadData()) {
-    ControllerState contState = controller.parse(receivedData);
-    if (contState.isValid() && controller.StateChanged(contState)) {
-      controller.SetState(contState);
+    ControllerState requestedState = controller.parse(receivedData);
+    if (requestedState.isValid() && controller.StateChanged(requestedState)) {
+      controller.SetState(requestedState);
     }
-    PrintData(contState);
-    mixer.GetResponse(contState, message);
+    PrintData(requestedState);
+    mixer.GetResponse(requestedState, message);
   }
 
   SendData(message);
