@@ -12,7 +12,7 @@
 
 class ControllerState
 {
-    public:
+  public:
     ControllerState();
     ControllerState(const ControllerState& toCopy);
     ControllerState(bool valid, int power, int temp, int flow, int isMainOutlet);
@@ -27,7 +27,7 @@ class ControllerState
     int flow() { return isValid() ? _flow : FLOW_MIN; }
     //Outlet
     int isMainOutlet() { return isValid() ? _outlet : OUTLET_DEFAULT; }
-    private:
+  private:
     bool _isValid = false;
 
     int _power = 0;
