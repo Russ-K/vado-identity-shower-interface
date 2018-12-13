@@ -63,6 +63,7 @@ void loop()
     if (requestedState.isValid() && controller.StateChanged(requestedState)) {
       controller.SetState(requestedState);
       PrintData(requestedState);
+      mixer.UpdateSystemState(requestedState);
     }
     mixer.GetResponse(requestedState, message);
   }
