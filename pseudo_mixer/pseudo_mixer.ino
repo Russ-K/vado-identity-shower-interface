@@ -60,10 +60,12 @@ void loop()
 {
   if (ReadData()) {
     ControllerState requestedState = controller.parse(receivedData);
-    if (requestedState.isValid() && controller.StateChanged(requestedState)) {
+    if (requestedState.isValid()) {
+      if (controller.StateChanged(requestedState)) {
       controller.SetState(requestedState);
       PrintData(requestedState);
       mixer.UpdateSystemState(requestedState);
+    }
     }
     mixer.GetResponse(requestedState, message);
   }
