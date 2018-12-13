@@ -19,7 +19,7 @@ class Mixer
   private:
     char _curMsg = INTRO;
     char CalcResponse(ControllerState controllerState);
-    void SetMessage(char required, byte setMsg[]);
+    const void SetMessage(char required, byte setMsg[]);
 
     //Outgoing messages
     static const byte MSG_INTRO[MSG_LEN];

@@ -37,7 +37,7 @@ char Mixer::CalcResponse(ControllerState controllerState)
   return INTRO;
 }
 
-void Mixer::SetMessage(char required, byte setMsg[])
+const void Mixer::SetMessage(char required, byte setMsg[])
 {
   switch(required) {
     case HEARTBEAT:
