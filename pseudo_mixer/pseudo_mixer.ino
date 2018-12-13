@@ -99,9 +99,10 @@ void SendData(byte sendMsg[]) {
 bool ReadData() {
   if (Serial1.available() > 0) {
     byte byteRead;
-    long readTimeout = millis() + MIN_READ_MILLIS;
+    unsigned long startMillis = millis();
+    unsigned long readTimeout = startMillis + MIN_READ_MILLIS;
     int nCurByte = 0;
-    while (Serial1.available() > 0 || millis() < readTimeout) {
+    while (Serial1.available() > 0 || millis() < readTimeout || millis() < startMillis) {
       if (Serial1.available() > 0) {
         byteRead = Serial1.read();
         receivedData[nCurByte++] = byteRead;
