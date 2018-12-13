@@ -18,6 +18,7 @@ class Controller
     static ControllerState parse(const byte[MSG_LEN]);
 
     void SetState(const ControllerState& newState);
+    bool StateChanged(const ControllerState& newState);
   private:
     ControllerState _controllerState;
 
