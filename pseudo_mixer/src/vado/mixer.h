@@ -15,6 +15,7 @@ class Mixer
   public:
     Mixer();
     bool GetResponse(ControllerState controllerState, byte setMsg[]);
+    void UpdateSystemState(ControllerState controllerState);
     
   private:
     char _curMsg = INTRO;

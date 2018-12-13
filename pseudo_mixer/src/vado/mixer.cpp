@@ -23,6 +23,10 @@ bool Mixer::GetResponse(ControllerState controllerState, byte setMsg[])
     SetMessage(_curMsg, setMsg);
 }
 
+void Mixer::UpdateSystemState(ControllerState controllerState)
+{
+}
+
 char Mixer::CalcResponse(ControllerState controllerState)
 {
   if (controllerState.isValid()) {
