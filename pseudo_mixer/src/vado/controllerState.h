@@ -17,19 +17,19 @@ class ControllerState
     ControllerState(const ControllerState& toCopy);
     ControllerState(bool valid, int power, int temp, int flow, int isMainOutlet);
 
-    bool operator == (const ControllerState& rhs);
+    const bool operator == (const ControllerState& rhs);
 
-    bool isValid() { return _isValid; }
+    const bool isValid() { return _isValid; }
 
     //Power
-    bool isOn() { return isValid() && _power == POWER_ON; }
-    bool isPaused() { return isValid() && _power == POWER_PAUSED; }
+    const bool isOn() { return isValid() && _power == POWER_ON; }
+    const bool isPaused() { return isValid() && _power == POWER_PAUSED; }
     //Temp
-    int temp() { return isValid() && _temperature <= TEMP_MAX_C ? _temperature : TEMP_MIN_C; }
+    const int temp() { return isValid() && _temperature <= TEMP_MAX_C ? _temperature : TEMP_MIN_C; }
     //Flow
-    int flow() { return isValid() ? _flow : FLOW_MIN; }
+    const int flow() { return isValid() ? _flow : FLOW_MIN; }
     //Outlet
-    int isMainOutlet() { return isValid() ? _outlet : OUTLET_DEFAULT; }
+    const int isMainOutlet() { return isValid() ? _outlet : OUTLET_DEFAULT; }
   private:
     bool _isValid = false;
 

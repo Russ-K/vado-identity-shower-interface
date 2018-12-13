@@ -31,7 +31,7 @@ ControllerState::ControllerState(const ControllerState& toCopy)
     _outlet = toCopy._outlet;
 }
 
-bool ControllerState::operator == (const ControllerState& rhs)
+const bool ControllerState::operator == (const ControllerState& rhs)
 {
 	return (_isValid == rhs._isValid &&
         _power == rhs._power &&
