@@ -56,14 +56,14 @@ void loop()
     if (contState.isValid() && controller.StateChanged(contState)) {
       controller.SetState(contState);
     }
-    PrintData();
+    PrintData(contState);
     mixer.GetResponse(contState, message);
   }
 
   SendData(message);
 }
 
-void PrintData() {
+void PrintData(ControllerState& newState) {
   static bool bOn = false;
   static bool bPaused = false;
   static int temp = 0;
@@ -71,24 +71,24 @@ void PrintData() {
   static int outlet = 0;
 
   bool stateChanged = false;
-  if (contState.isOn() != bOn) {
-    bOn = contState.isOn();
+  if (newState.isOn() != bOn) {
+    bOn = newState.isOn();
     stateChanged = true;
   }
-  if (contState.isPaused() != bPaused) {
-    bPaused = contState.isPaused();
+  if (newState.isPaused() != bPaused) {
+    bPaused = newState.isPaused();
     stateChanged = true;
   }
-  if (contState.temp() != temp) {
-    temp = contState.temp();
+  if (newState.temp() != temp) {
+    temp = newState.temp();
     stateChanged = true;
   }
-  if (contState.flow() != flow) {
-    flow = contState.flow();
+  if (newState.flow() != flow) {
+    flow = newState.flow();
     stateChanged = true;
   }
-  if (contState.isMainOutlet() != outlet) {
-    outlet = contState.isMainOutlet();
+  if (newState.isMainOutlet() != outlet) {
+    outlet = newState.isMainOutlet();
     stateChanged = true;
   }
 
