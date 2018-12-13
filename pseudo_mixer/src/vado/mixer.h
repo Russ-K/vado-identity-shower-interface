@@ -13,11 +13,13 @@
 class Mixer
 {
   public:
-    Mixer();
+    Mixer(int powerPin);
     bool GetResponse(ControllerState& controllerState, byte setMsg[]);
     void UpdateSystemState(ControllerState& controllerState);
     
   private:
+    int _powerPin = 0;
+
     char _curMsg = INTRO;
     char CalcResponse(ControllerState& controllerState);
     const void SetMessage(char required, byte setMsg[]);

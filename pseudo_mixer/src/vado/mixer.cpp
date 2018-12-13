@@ -13,8 +13,9 @@ const byte Mixer::MSG_PREPARING[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB3};
 const byte Mixer::MSG_HEARTBEAT[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D}; //it might be that this should be the current mixer water temperature
 const byte Mixer::MSG_READY[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
 
-Mixer::Mixer()
+Mixer::Mixer(int powerPin)
 {
+  _powerPin = powerPin;
 }
 
 bool Mixer::GetResponse(ControllerState& controllerState, byte setMsg[])

@@ -47,7 +47,7 @@ const int POWER_PIN = 3;
 
 
 Controller controller;
-Mixer mixer;
+Mixer mixer(POWER_PIN);
 
 void setup() {
   Serial.begin(baudRate, serialConfig);
