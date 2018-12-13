@@ -54,8 +54,8 @@ void loop()
     ControllerState requestedState = controller.parse(receivedData);
     if (requestedState.isValid() && controller.StateChanged(requestedState)) {
       controller.SetState(requestedState);
+      PrintData(requestedState);
     }
-    PrintData(requestedState);
     mixer.GetResponse(requestedState, message);
   }
 
