@@ -53,6 +53,9 @@ void loop()
 {
   if (ReadData()) {
     contState = controller.parse(receivedData);
+    if (contState.isValid()) {
+      controller.SetState(contState);
+    }
     PrintData();
   }
 
