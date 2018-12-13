@@ -63,10 +63,10 @@ void loop()
     ControllerState requestedState = controller.parse(receivedData);
     if (requestedState.isValid()) {
       if (controller.StateChanged(requestedState)) {
-      controller.SetState(requestedState);
-      PrintData(requestedState);
-      mixer.UpdateSystemState(requestedState);
-    }
+        controller.SetState(requestedState);
+        PrintData(requestedState);
+        mixer.UpdateSystemState(requestedState);
+      }
     }
     mixer.GetResponse(requestedState, message);
   }
@@ -98,7 +98,18 @@ void SendData(byte sendMsg[]) {
 
 bool ReadData() {
   if (Serial1.available() > 0) {
-    return MSG_LEN == Serial1.readBytes(receivedData, MSG_LEN);
+    byte byteRead;
+    long readTimeout = millis() + MIN_READ_MILLIS;
+    int nCurByte = 0;
+    while (Serial1.available() > 0 || millis() < readTimeout) {
+      if (Serial1.available() > 0) {
+        byteRead = Serial1.read();
+        receivedData[nCurByte++] = byteRead;
+        if (nCurByte >= MSG_LEN || byteRead == 0x00) {
+          return true;
+        }
+      }
+    }
   }
   return false;
 }
