@@ -18,7 +18,7 @@ void Controller::SetState(const ControllerState& newState)
 
 bool Controller::StateChanged(const ControllerState& newState)
 {
-    return _controllerState == newState;
+    return !(_controllerState == newState);
 }
 
 ControllerState Controller::parse(const byte data [MSG_LEN])
