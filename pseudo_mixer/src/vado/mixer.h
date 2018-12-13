@@ -8,7 +8,7 @@
 
 #include "Arduino.h"
 #include "constants.h"
-#include "controller.h"
+#include "systemState.h"
 
 class Mixer
 {

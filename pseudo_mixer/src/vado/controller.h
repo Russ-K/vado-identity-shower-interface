@@ -8,7 +8,7 @@
 
 #include "Arduino.h"
 #include "constants.h"
-#include "controllerState.h"
+#include "systemState.h"
 
 class Controller
 {
