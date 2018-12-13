@@ -13,6 +13,7 @@
 const int MSG_LEN = 7;
 /////////////////////////////////////////////////////////////////
 
+static const byte PACKET_TERMINATOR = 0x00;
 
 //Controller message details
 //Message byte positions
