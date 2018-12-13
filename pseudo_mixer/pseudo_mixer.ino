@@ -105,7 +105,7 @@ bool ReadData() {
       if (Serial1.available() > 0) {
         byteRead = Serial1.read();
         receivedData[nCurByte++] = byteRead;
-        if (nCurByte >= MSG_LEN || byteRead == 0x00) {
+        if (nCurByte >= MSG_LEN || byteRead == PACKET_TERMINATOR) {
           return true;
         }
       }
