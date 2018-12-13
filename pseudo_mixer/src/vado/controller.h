@@ -15,13 +15,13 @@ class Controller
   public:
     Controller();
 
-    ControllerState parse(const byte[MSG_LEN]);
+    static ControllerState parse(const byte[MSG_LEN]);
   private:
 
-    bool parsePower(const byte, int& power);
-    bool parseTemperature(const byte, int& temperature);
-    bool parseFlow(const byte, int& flow);
-    bool parseOutlet(const byte, int& outlet);
+    static bool parsePower(const byte, int& power);
+    static bool parseTemperature(const byte, int& temperature);
+    static bool parseFlow(const byte, int& flow);
+    static bool parseOutlet(const byte, int& outlet);
 };
 
 #endif
