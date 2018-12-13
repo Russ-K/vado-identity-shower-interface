@@ -27,6 +27,7 @@ bool Mixer::GetResponse(ControllerState& controllerState, byte setMsg[])
 
 void Mixer::UpdateSystemState(ControllerState& controllerState)
 {
+  digitalWrite(_powerPin, controllerState.isOn() ? HIGH : LOW);
 }
 
 char Mixer::CalcResponse(ControllerState& controllerState)
