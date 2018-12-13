@@ -11,6 +11,11 @@ Controller::Controller()
 {
 }
 
+void Controller::SetState(const ControllerState& newState)
+{
+    _controllerState = newState;
+}
+
 ControllerState Controller::parse(const byte data [MSG_LEN])
 {
     bool _isValid = false;

@@ -16,7 +16,10 @@ class Controller
     Controller();
 
     static ControllerState parse(const byte[MSG_LEN]);
+
+    void SetState(const ControllerState& newState);
   private:
+    ControllerState _controllerState;
 
     static bool parsePower(const byte, int& power);
     static bool parseTemperature(const byte, int& temperature);
