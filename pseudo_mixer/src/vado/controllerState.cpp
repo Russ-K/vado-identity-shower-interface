@@ -30,3 +30,12 @@ ControllerState::ControllerState(const ControllerState& toCopy)
     _flow = toCopy._flow;
     _outlet = toCopy._outlet;
 }
+
+bool ControllerState::operator == (const ControllerState& rhs)
+{
+	return (_isValid == rhs._isValid &&
+        _power == rhs._power &&
+        _temperature == rhs._temperature &&
+        _flow == rhs._flow &&
+        _outlet == rhs._outlet);
+}

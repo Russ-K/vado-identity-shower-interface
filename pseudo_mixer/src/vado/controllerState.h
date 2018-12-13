@@ -16,6 +16,9 @@ class ControllerState
     ControllerState();
     ControllerState(const ControllerState& toCopy);
     ControllerState(bool valid, int power, int temp, int flow, int isMainOutlet);
+
+    bool operator == (const ControllerState& rhs);
+
     bool isValid() { return _isValid; }
 
     //Power
