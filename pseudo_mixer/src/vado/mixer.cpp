@@ -17,17 +17,17 @@ Mixer::Mixer()
 {
 }
 
-bool Mixer::GetResponse(ControllerState controllerState, byte setMsg[])
+bool Mixer::GetResponse(ControllerState& controllerState, byte setMsg[])
 {
     _curMsg = CalcResponse(controllerState);
     SetMessage(_curMsg, setMsg);
 }
 
-void Mixer::UpdateSystemState(ControllerState controllerState)
+void Mixer::UpdateSystemState(ControllerState& controllerState)
 {
 }
 
-char Mixer::CalcResponse(ControllerState controllerState)
+char Mixer::CalcResponse(ControllerState& controllerState)
 {
   if (controllerState.isValid()) {
     if (_curMsg == HEARTBEAT) {
