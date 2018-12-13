@@ -16,6 +16,7 @@ const byte Mixer::MSG_READY[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
 Mixer::Mixer(int powerPin)
 {
   _powerPin = powerPin;
+  pinMode(_powerPin, OUTPUT);
 }
 
 bool Mixer::GetResponse(ControllerState& controllerState, byte setMsg[])
