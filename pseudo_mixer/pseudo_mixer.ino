@@ -57,9 +57,9 @@ void loop()
       controller.SetState(contState);
     }
     PrintData();
+    mixer.GetResponse(contState, message);
   }
 
-  mixer.GetResponse(contState, message);
   SendData(message);
 }
 
