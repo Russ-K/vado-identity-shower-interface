@@ -8,36 +8,20 @@
 
 #include "Arduino.h"
 #include "constants.h"
+#include "controllerState.h"
 
 class Controller
 {
   public:
     Controller();
-    void parse(const byte[MSG_LEN]);
-    bool isValid() { return _isValid; }
 
-    //Power
-    bool isOn() { return isValid() && _power == POWER_ON; }
-    bool isPaused() { return isValid() && _power == POWER_PAUSED; }
-    //Temp
-    int temp() { return isValid() && _temperature <= TEMP_MAX_C ? _temperature : TEMP_MIN_C; }
-    //Flow
-    int flow() { return isValid() ? _flow : FLOW_MIN; }
-    //Outlet
-    int isMainOutlet() { return isValid() ? _outlet : OUTLET_DEFAULT; }
-    
+    ControllerState parse(const byte[MSG_LEN]);
   private:
-    bool _isValid;
 
-    int _power = 0;
-    int _temperature = 0;
-    int _flow = 0;
-    int _outlet = 0;
-
-    bool parsePower(const byte);
-    bool parseTemperature(const byte);
-    bool parseFlow(const byte);
-    bool parseOutlet(const byte);
+    bool parsePower(const byte, int& power);
+    bool parseTemperature(const byte, int& temperature);
+    bool parseFlow(const byte, int& flow);
+    bool parseOutlet(const byte, int& outlet);
 
     //Controller message details
     //Message byte positions

@@ -14,11 +14,11 @@ class Mixer
 {
   public:
     Mixer();
-    bool GetResponse(Controller controller, byte setMsg[]);
+    bool GetResponse(ControllerState controllerState, byte setMsg[]);
     
   private:
     char _curMsg = INTRO;
-    char CalcResponse(Controller controller);
+    char CalcResponse(ControllerState controllerState);
     void SetMessage(char required, byte setMsg[]);
 
     //Outgoing messages

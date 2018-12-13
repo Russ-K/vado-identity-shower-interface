@@ -39,6 +39,7 @@ int nCurByte = 0;
 /////////////////////////////////////////////////////////////////
 
 Controller controller;
+ControllerState contState;
 Mixer mixer;
 
 void setup() {
@@ -51,11 +52,11 @@ void setup() {
 void loop()
 {
   if (ReadData()) {
-    controller.parse(receivedData);
+    contState = controller.parse(receivedData);
     PrintData();
   }
 
-  mixer.GetResponse(controller, message);
+  mixer.GetResponse(contState, message);
   SendData(message);
 }
 
@@ -67,24 +68,24 @@ void PrintData() {
   static int outlet = 0;
 
   bool stateChanged = false;
-  if (controller.isOn() != bOn) {
-    bOn = controller.isOn();
+  if (contState.isOn() != bOn) {
+    bOn = contState.isOn();
     stateChanged = true;
   }
-  if (controller.isPaused() != bPaused) {
-    bPaused = controller.isPaused();
+  if (contState.isPaused() != bPaused) {
+    bPaused = contState.isPaused();
     stateChanged = true;
   }
-  if (controller.temp() != temp) {
-    temp = controller.temp();
+  if (contState.temp() != temp) {
+    temp = contState.temp();
     stateChanged = true;
   }
-  if (controller.flow() != flow) {
-    flow = controller.flow();
+  if (contState.flow() != flow) {
+    flow = contState.flow();
     stateChanged = true;
   }
-  if (controller.isMainOutlet() != outlet) {
-    outlet = controller.isMainOutlet();
+  if (contState.isMainOutlet() != outlet) {
+    outlet = contState.isMainOutlet();
     stateChanged = true;
   }
 
