@@ -1,5 +1,5 @@
 /*
-  temperature.h - Library for retrieving a temperature reading
+  temperature_sensor.h - Library for retrieving a temperature reading
   Created by Russell Keane, January 6, 2019.
   Released into the public domain.
 
@@ -11,10 +11,10 @@
 #include "Arduino.h"
 #include "constants.h"
 
-class Temperature
+class TemperatureSensor
 {
   public:
-    Temperature(uint8_t temperaturePin, uint16_t betaValue, uint16_t seriesResistor = 10000, uint16_t thermistorNominal = 10000, uint8_t sampleCount = 5, uint8_t sampleWait = 1, int8_t temperatureNominal = 25);
+    TemperatureSensor(uint8_t temperaturePin, uint16_t betaValue, uint16_t seriesResistor = 10000, uint16_t thermistorNominal = 10000, uint8_t sampleCount = 5, uint8_t sampleWait = 1, int8_t temperatureNominal = 25);
     const float GetCurrentTemp();
 
   private:
