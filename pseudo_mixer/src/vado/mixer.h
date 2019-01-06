@@ -22,6 +22,8 @@ class Mixer
   private:
     int _powerPin = 0;
 
+    bool _isOn = false;
+
     char _curMsg = INTRO;
     char CalcResponse(ControllerState& controllerState);
     const void SetMessage(char required, byte setMsg[]);
