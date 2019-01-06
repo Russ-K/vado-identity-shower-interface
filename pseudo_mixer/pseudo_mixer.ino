@@ -1,5 +1,6 @@
 #include "src/vado/controller.h"
 #include "src/vado/mixer.h"
+#include "src/vado/thermistor_params.h"
 
 /////////////////////////////////////////////////////////////////
 //Transmission Details
@@ -76,6 +77,8 @@ void loop()
     }
     mixer.GetResponse(requestedState, message);
   }
+
+  mixer.Process();
 
   SendData(message);
 }
