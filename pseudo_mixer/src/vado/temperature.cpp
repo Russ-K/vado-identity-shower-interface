@@ -22,4 +22,14 @@ Temperature::Temperature(uint8_t temperaturePin, uint16_t betaValue, uint16_t se
 
 const float Temperature::GetCurrentTemp()
 {
+    uint16_t sampleTotal = 0;
+    // take N samples in a row, with a slight delay
+    for (uint8_t i = 0; i < _sampleCount; i++) {
+        sampleTotal += analogRead(_temperaturePin);
+        delay(_sampleWait);
+    }
+
+    float sampleAverage = sampleTotal / _sampleCount;
+    Serial.print("Average analog reading "); 
+    Serial.println(sampleAverage);
 }
