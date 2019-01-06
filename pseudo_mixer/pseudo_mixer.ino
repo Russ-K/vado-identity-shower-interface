@@ -41,14 +41,20 @@ int nCurByte = 0;
 
 
 /////////////////////////////////////////////////////////////////
+//Pins
 //State pins
 const int POWER_PIN = 3;
-//State pins
+
+//Thermistor Pins
+const int THERMISTOR_POWER_PIN = 2;
+const int THERMISTOR_PIN = A0;
+//Pins
 /////////////////////////////////////////////////////////////////
 
 
 Controller controller;
-Mixer mixer(POWER_PIN);
+ThermistorParams thermistorParams(THERMISTOR_PIN, 3435, 9940, THERMISTOR_POWER_PIN);
+Mixer mixer(POWER_PIN, thermistorParams);
 
 void setup() {
   Serial.begin(baudRate, serialConfig);
