@@ -9,41 +9,44 @@
 #include "Arduino.h"
 #include "temperature_sensor.h"
 
-TemperatureSensor::TemperatureSensor(uint8_t temperaturePin, uint16_t betaValue, uint16_t seriesResistor, uint16_t thermistorNominal, uint8_t sampleCount, uint8_t sampleWait, int8_t temperatureNominal)
+TemperatureSensor::TemperatureSensor()
 {
-  _temperaturePin = temperaturePin;
-  _betaValue = betaValue;
-  _seriesResistor = seriesResistor;
-  _thermistorNominal = thermistorNominal;
-  _sampleCount = sampleCount;
-  _sampleWait = sampleWait;
-  _temperatureNominal = temperatureNominal;
+}
+
+void TemperatureSensor::Init(ThermistorParams thermistorParams)
+{
+    _thermistorParams = thermistorParams;
 }
 
 const float TemperatureSensor::GetCurrentTemp()
 {
+    return GetCurrentThermistorTemp();
+}
+
+const float TemperatureSensor::GetCurrentThermistorTemp()
+{
     uint16_t sampleTotal = 0;
     // take N samples in a row, with a slight delay
-    for (uint8_t i = 0; i < _sampleCount; i++) {
-        sampleTotal += analogRead(_temperaturePin);
-        delay(_sampleWait);
+    for (uint8_t i = 0; i < _thermistorParams._sampleCount; i++) {
+        sampleTotal += analogRead(_thermistorParams._temperaturePin);
+        delay(_thermistorParams._sampleWait);
     }
 
-    float sampleAverage = sampleTotal / _sampleCount;
+    float sampleAverage = sampleTotal / _thermistorParams._sampleCount;
     // Serial.print("Average analog reading "); 
     // Serial.println(sampleAverage);
 
     // convert the value to resistance
     sampleAverage = 1023 / sampleAverage - 1;
-    sampleAverage = _seriesResistor / sampleAverage;
+    sampleAverage = _thermistorParams._seriesResistor / sampleAverage;
     // Serial.print("Thermistor resistance "); 
     // Serial.println(sampleAverage);
 
     float steinhart;
-    steinhart = sampleAverage / _thermistorNominal;     // (R/Ro)
+    steinhart = sampleAverage / _thermistorParams._thermistorNominal;     // (R/Ro)
     steinhart = log(steinhart);                         // ln(R/Ro)
-    steinhart /= _betaValue;                            // 1/B * ln(R/Ro)
-    steinhart += 1.0 / (_temperatureNominal + 273.15);  // + (1/To)
+    steinhart /= _thermistorParams._betaValue;                            // 1/B * ln(R/Ro)
+    steinhart += 1.0 / (_thermistorParams._temperatureNominal + 273.15);  // + (1/To)
     steinhart = 1.0 / steinhart;                        // Invert
     steinhart -= 273.15;                                // convert to C
     
