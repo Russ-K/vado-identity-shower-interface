@@ -13,10 +13,12 @@ const byte Mixer::MSG_PREPARING[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB3};
 const byte Mixer::MSG_HEARTBEAT[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D}; //it might be that this should be the current mixer water temperature
 const byte Mixer::MSG_READY[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
 
-Mixer::Mixer(int powerPin)
+Mixer::Mixer(int powerPin, ThermistorParams thermistorParams)
 {
   _powerPin = powerPin;
   pinMode(_powerPin, OUTPUT);
+
+  _temperatureSensor.Init(thermistorParams);
 }
 
 bool Mixer::GetResponse(ControllerState& controllerState, byte setMsg[])
@@ -61,4 +63,8 @@ const void Mixer::SetMessage(char required, byte setMsg[])
       memcpy(setMsg, Mixer::MSG_INTRO, MSG_LEN);
       break;
   }
+}
+
+void Mixer::Process()
+{
 }

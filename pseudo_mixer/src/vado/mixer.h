@@ -9,13 +9,15 @@
 #include "Arduino.h"
 #include "constants.h"
 #include "systemState.h"
+#include "temperature_sensor.h"
 
 class Mixer
 {
   public:
-    Mixer(int powerPin);
+    Mixer(int powerPin, ThermistorParams thermistorParams);
     bool GetResponse(ControllerState& controllerState, byte setMsg[]);
     void UpdateSystemState(ControllerState& controllerState);
+    void Process();
     
   private:
     int _powerPin = 0;
@@ -34,6 +36,8 @@ class Mixer
     static const char PREPARING = 2;
     static const char HEARTBEAT = 3;
     static const char READY = 4;
+
+    TemperatureSensor _temperatureSensor;
 };
 
 #endif
