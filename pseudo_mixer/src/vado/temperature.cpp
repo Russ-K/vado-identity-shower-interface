@@ -38,4 +38,18 @@ const float Temperature::GetCurrentTemp()
     sampleAverage = _seriesResistor / sampleAverage;
     Serial.print("Thermistor resistance "); 
     Serial.println(sampleAverage);
+
+    float steinhart;
+    steinhart = sampleAverage / _thermistorNominal;     // (R/Ro)
+    steinhart = log(steinhart);                         // ln(R/Ro)
+    steinhart /= _betaValue;                            // 1/B * ln(R/Ro)
+    steinhart += 1.0 / (_temperatureNominal + 273.15);  // + (1/To)
+    steinhart = 1.0 / steinhart;                        // Invert
+    steinhart -= 273.15;                                // convert to C
+    
+    Serial.print("Temperature "); 
+    Serial.print(steinhart);
+    Serial.println(" *C");
+
+    return steinhart;
 }
