@@ -30,14 +30,14 @@ const float Temperature::GetCurrentTemp()
     }
 
     float sampleAverage = sampleTotal / _sampleCount;
-    Serial.print("Average analog reading "); 
-    Serial.println(sampleAverage);
+    // Serial.print("Average analog reading "); 
+    // Serial.println(sampleAverage);
 
-      // convert the value to resistance
+    // convert the value to resistance
     sampleAverage = 1023 / sampleAverage - 1;
     sampleAverage = _seriesResistor / sampleAverage;
-    Serial.print("Thermistor resistance "); 
-    Serial.println(sampleAverage);
+    // Serial.print("Thermistor resistance "); 
+    // Serial.println(sampleAverage);
 
     float steinhart;
     steinhart = sampleAverage / _thermistorNominal;     // (R/Ro)
@@ -47,9 +47,9 @@ const float Temperature::GetCurrentTemp()
     steinhart = 1.0 / steinhart;                        // Invert
     steinhart -= 273.15;                                // convert to C
     
-    Serial.print("Temperature "); 
-    Serial.print(steinhart);
-    Serial.println(" *C");
+    // Serial.print("Temperature "); 
+    // Serial.print(steinhart);
+    // Serial.println(" *C");
 
     return steinhart;
 }
