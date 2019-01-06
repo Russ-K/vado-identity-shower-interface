@@ -68,4 +68,8 @@ const void Mixer::SetMessage(char required, byte setMsg[])
 
 void Mixer::Process()
 {
+  if (_isOn)
+  {
+    _temperatureSensor.GetCurrentTemp();
+  }
 }
