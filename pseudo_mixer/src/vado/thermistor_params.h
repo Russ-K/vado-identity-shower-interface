@@ -12,6 +12,10 @@
 
 struct ThermistorParams
 {
+    // which Digital pin will supply the power for the thermistor
+    // this is used to avoid the thermistor self-heating
+    // leave this as 0 if you're permanently supplying power
+    uint8_t _temperaturePowerPin = 0;
     // which analog pin to connect
     uint8_t _temperaturePin = 0;
     // resistance at 25 degrees C
@@ -30,10 +34,11 @@ struct ThermistorParams
 
     ThermistorParams() {};
 
-    ThermistorParams(uint8_t temperaturePin, uint16_t betaValue, uint16_t seriesResistor = 10000, uint16_t thermistorNominal = 10000, uint8_t sampleCount = 5, uint8_t sampleWait = 1, int8_t temperatureNominal = 25) {
+    ThermistorParams(uint8_t temperaturePin, uint16_t betaValue, uint16_t seriesResistor = 10000, uint8_t temperaturePowerPin = 0, uint16_t thermistorNominal = 10000, uint8_t sampleCount = 5, uint8_t sampleWait = 1, int8_t temperatureNominal = 25) {
         _temperaturePin = temperaturePin;
         _betaValue = betaValue;
         _seriesResistor = seriesResistor;
+        _temperaturePowerPin = temperaturePowerPin;
         _thermistorNominal = thermistorNominal;
         _sampleCount = sampleCount;
         _sampleWait = sampleWait;

@@ -16,6 +16,8 @@ TemperatureSensor::TemperatureSensor()
 void TemperatureSensor::Init(ThermistorParams thermistorParams)
 {
     _thermistorParams = thermistorParams;
+    if (_thermistorParams._temperaturePowerPin > 0) 
+        pinMode(_thermistorParams._temperaturePowerPin, OUTPUT);
 }
 
 const float TemperatureSensor::GetCurrentTemp()
@@ -25,6 +27,9 @@ const float TemperatureSensor::GetCurrentTemp()
 
 const float TemperatureSensor::GetCurrentThermistorTemp()
 {
+    if (_thermistorParams._temperaturePowerPin > 0)
+        digitalWrite(_thermistorParams._temperaturePowerPin, HIGH);
+
     uint16_t sampleTotal = 0;
     // take N samples in a row, with a slight delay
     for (uint8_t i = 0; i < _thermistorParams._sampleCount; i++) {
@@ -53,6 +58,9 @@ const float TemperatureSensor::GetCurrentThermistorTemp()
     // Serial.print("Temperature "); 
     // Serial.print(steinhart);
     // Serial.println(" *C");
+
+    if (_thermistorParams._temperaturePowerPin > 0)
+        digitalWrite(_thermistorParams._temperaturePowerPin, LOW);
 
     return steinhart;
 }
