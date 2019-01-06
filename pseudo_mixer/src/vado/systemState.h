@@ -25,11 +25,11 @@ class ControllerState
     const bool isOn() { return isValid() && _power == POWER_ON; }
     const bool isPaused() { return isValid() && _power == POWER_PAUSED; }
     //Temp
-    const int temp() { return isValid() && _temperature <= TEMP_MAX_C ? _temperature : TEMP_MIN_C; }
+    const int8_t temp() { return isValid() && _temperature <= TEMP_MAX_C ? _temperature : TEMP_MIN_C; }
     //Flow
-    const int flow() { return isValid() ? _flow : FLOW_MIN; }
+    const uint8_t flow() { return isValid() ? _flow : FLOW_MIN; }
     //Outlet
-    const int isMainOutlet() { return isValid() ? _outlet : OUTLET_DEFAULT; }
+    const uint8_t isMainOutlet() { return isValid() ? _outlet : OUTLET_DEFAULT; }
   private:
     bool _isValid = false;
 
