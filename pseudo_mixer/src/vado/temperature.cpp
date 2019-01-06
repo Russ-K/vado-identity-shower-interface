@@ -9,7 +9,7 @@
 #include "Arduino.h"
 #include "temperature.h"
 
-Temperature::Temperature(int temperaturePin, int betaValue, int seriesResistor, int thermistorNominal, int sampleCount, int sampleWait, int temperatureNominal)
+Temperature::Temperature(uint8_t temperaturePin, uint16_t betaValue, uint16_t seriesResistor, uint16_t thermistorNominal, uint8_t sampleCount, uint8_t sampleWait, int8_t temperatureNominal)
 {
   _temperaturePin = temperaturePin;
   _betaValue = betaValue;
