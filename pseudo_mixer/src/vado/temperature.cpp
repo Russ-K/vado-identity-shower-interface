@@ -32,4 +32,10 @@ const float Temperature::GetCurrentTemp()
     float sampleAverage = sampleTotal / _sampleCount;
     Serial.print("Average analog reading "); 
     Serial.println(sampleAverage);
+
+      // convert the value to resistance
+    sampleAverage = 1023 / sampleAverage - 1;
+    sampleAverage = _seriesResistor / sampleAverage;
+    Serial.print("Thermistor resistance "); 
+    Serial.println(sampleAverage);
 }
