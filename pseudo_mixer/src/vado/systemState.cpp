@@ -11,7 +11,7 @@ ControllerState::ControllerState()
 {
 }
 
-ControllerState::ControllerState(bool valid, int power, int temp, int flow, int isMainOutlet)
+ControllerState::ControllerState(bool valid, uint8_t power, int8_t temp, uint8_t flow, uint8_t isMainOutlet)
 {
     _isValid = valid;
 

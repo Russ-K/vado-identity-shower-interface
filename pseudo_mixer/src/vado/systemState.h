@@ -15,7 +15,7 @@ class ControllerState
   public:
     ControllerState();
     ControllerState(const ControllerState& toCopy);
-    ControllerState(bool valid, int power, int temp, int flow, int isMainOutlet);
+    ControllerState(bool valid, uint8_t power, int8_t temp, uint8_t flow, uint8_t isMainOutlet);
 
     const bool operator == (const ControllerState& rhs);
 
@@ -33,10 +33,10 @@ class ControllerState
   private:
     bool _isValid = false;
 
-    int _power = 0;
-    int _temperature = 0;
-    int _flow = 0;
-    int _outlet = 0;
+    uint8_t _power = 0;
+    int8_t _temperature = 0;
+    uint8_t _flow = 0;
+    uint8_t _outlet = 0;
 };
 
 #endif
