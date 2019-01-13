@@ -17,15 +17,15 @@ Mixer::Mixer(int powerPin, int proportioningValvePowerPin, int proportioningValv
 {
   _powerPin = powerPin;
   pinMode(_powerPin, OUTPUT);
-  digitalWrite(_powerPin, LOW); //default power off
+  digitalWrite(_powerPin, RELAY_LOW); //default power off
 
   _proportioningValvePowerPin = proportioningValvePowerPin;
   pinMode(_proportioningValvePowerPin, OUTPUT);
-  digitalWrite(_proportioningValvePowerPin, LOW); //default power off
+  digitalWrite(_proportioningValvePowerPin, RELAY_LOW); //default power off
 
   _proportioningValveDirectionPin = proportioningValveDirectionPin;
   pinMode(_proportioningValveDirectionPin, OUTPUT);
-  digitalWrite(_proportioningValveDirectionPin, LOW);
+  digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
 
   _temperatureSensor.Init(thermistorParams);
 }
@@ -39,9 +39,9 @@ bool Mixer::GetResponse(ControllerState& controllerState, byte setMsg[])
 void Mixer::UpdateSystemState(ControllerState& controllerState)
 {
   _isOn = controllerState.isOn();
-  digitalWrite(_powerPin, _isOn ? HIGH : LOW);
+  digitalWrite(_powerPin, _isOn ? RELAY_HIGH : RELAY_LOW);
   Serial.print("UpdateSystemState, isOn: ");
-  Serial.println(_isOn ? HIGH : LOW);
+  Serial.println(_isOn ? RELAY_HIGH : RELAY_LOW);
 }
 
 char Mixer::CalcResponse(ControllerState& controllerState)

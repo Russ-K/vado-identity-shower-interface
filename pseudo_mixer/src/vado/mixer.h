@@ -42,6 +42,11 @@ class Mixer
     static const char READY = 4;
 
     TemperatureSensor _temperatureSensor;
+
+    //relays used switch on (leds lit) with a LOW signal
+    //so use these values to reverse the signal without making the code confusing
+    #define RELAY_HIGH LOW
+    #define RELAY_LOW HIGH
 };
 
 #endif
