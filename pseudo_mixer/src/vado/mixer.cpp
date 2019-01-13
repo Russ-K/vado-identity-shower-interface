@@ -44,8 +44,6 @@ void Mixer::UpdateSystemState(ControllerState& controllerState)
 {
   _isOn = controllerState.isOn();
   digitalWrite(_powerPin, _isOn ? RELAY_HIGH : RELAY_LOW);
-  Serial.print("UpdateSystemState, isOn: ");
-  Serial.println(_isOn ? RELAY_HIGH : RELAY_LOW);
 }
 
 char Mixer::CalcResponse(ControllerState& controllerState)
