@@ -44,6 +44,11 @@ class Mixer
     static const char READY = 4;
 
     TemperatureSensor _temperatureSensor;
+    enum TempSuitability {
+      TooCold,
+      JustRight,
+      TooHot
+    };
 
     //relays used switch on (leds lit) with a LOW signal
     //so use these values to reverse the signal without making the code confusing
