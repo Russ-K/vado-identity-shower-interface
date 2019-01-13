@@ -89,6 +89,12 @@ void Mixer::Process()
 {
   if (_isOn)
   {
-    _temperatureSensor.GetCurrentTemp();
+    int currentTemp = _temperatureSensor.GetCurrentTemp();
+    if (_targetTemperature > currentTemp) //we're too cold
+    {
+    }
+    else if (_targetTemperature < currentTemp) //we're too hot
+    {
+    }
   }
 }
