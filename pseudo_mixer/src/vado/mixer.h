@@ -26,7 +26,7 @@ class Mixer
     int _proportioningValveDirectionPin = 0;
 
     bool _isOn = false;
-    int _currentRequestedTemperature = 0;
+    int _targetTemperature = 0;
 
     char _curMsg = INTRO;
     char CalcResponse(ControllerState& controllerState);
