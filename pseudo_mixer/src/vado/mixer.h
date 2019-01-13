@@ -50,6 +50,7 @@ class Mixer
       TooHot
     };
 
+    static const float ALLOWABLE_TEMP_DIFFERENTIAL;
     static TempSuitability EvaluateTempSuitability(int requiredTemp, float currentTemp);
 
     //relays used switch on (leds lit) with a LOW signal
@@ -57,7 +58,6 @@ class Mixer
     #define RELAY_HIGH LOW
     #define RELAY_LOW HIGH
 
-    static const float ALLOWABLE_TEMP_DIFFERENTIAL;
     void ChangeTemp(TempSuitability currentSuitability);
 };
 
