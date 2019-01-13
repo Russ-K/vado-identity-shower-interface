@@ -44,6 +44,11 @@ void Mixer::UpdateSystemState(ControllerState& controllerState)
 {
   _isOn = controllerState.isOn();
   digitalWrite(_powerPin, _isOn ? RELAY_HIGH : RELAY_LOW);
+
+  if (_isOn)
+  {
+    digitalWrite(_solenoidSelectionPin, controllerState.isMainOutlet() ? RELAY_HIGH : RELAY_LOW);
+  }
 }
 
 char Mixer::CalcResponse(ControllerState& controllerState)
