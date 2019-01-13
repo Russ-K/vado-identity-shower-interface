@@ -91,8 +91,11 @@ void Mixer::Process()
 {
   if (_isOn)
   {
-    int currentTemp = _temperatureSensor.GetCurrentTemp();
-    if (_targetTemperature > currentTemp) //we're too cold
+    Mixer::TempSuitability currentSuitability = EvaluateTempSuitability(_targetTemperature, _temperatureSensor.GetCurrentTemp());
+    if (currentSuitability == TempSuitability::TooCold) //we're too cold
+    {
+    }
+    else if (currentSuitability == TempSuitability::TooHot) //we're too hot
     {
     }
   }
@@ -101,9 +104,9 @@ void Mixer::Process()
 Mixer::TempSuitability Mixer::EvaluateTempSuitability(int requiredTemp, float currentTemp)
 {
   if (currentTemp < (requiredTemp - ALLOWABLE_TEMP_DIFFERENTIAL))
-    {
+  {
     return TempSuitability::TooCold;
-    }
+  }
   else if (currentTemp > (requiredTemp + ALLOWABLE_TEMP_DIFFERENTIAL))
   {
     return TempSuitability::TooHot;
