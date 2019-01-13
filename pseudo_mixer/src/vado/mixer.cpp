@@ -52,6 +52,12 @@ void Mixer::UpdateSystemState(ControllerState& controllerState)
     digitalWrite(_solenoidSelectionPin, controllerState.isMainOutlet() ? RELAY_HIGH : RELAY_LOW);
     _targetTemperature = controllerState.temp();
   }
+  else
+  {
+    digitalWrite(_solenoidSelectionPin, RELAY_LOW);
+    digitalWrite(_proportioningValvePowerPin, RELAY_LOW);
+    digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
+  }
 }
 
 char Mixer::CalcResponse(ControllerState& controllerState)
