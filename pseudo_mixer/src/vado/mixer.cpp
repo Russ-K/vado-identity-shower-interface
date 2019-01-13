@@ -92,14 +92,7 @@ void Mixer::Process()
   if (_isOn)
   {
     Mixer::TempSuitability currentSuitability = EvaluateTempSuitability(_targetTemperature, _temperatureSensor.GetCurrentTemp());
-    if (currentSuitability == TempSuitability::TooCold) //we're too cold
-    {
-      ChangeTemp(false);
-    }
-    else if (currentSuitability == TempSuitability::TooHot) //we're too hot
-    {
-      ChangeTemp(true);
-    }
+    ChangeTemp(currentSuitability);
   }
 }
 
@@ -117,6 +110,23 @@ Mixer::TempSuitability Mixer::EvaluateTempSuitability(int requiredTemp, float cu
   return TempSuitability::JustRight;
 }
 
-void Mixer::ChangeTemp(bool makeColder)
+void Mixer::ChangeTemp(TempSuitability currentSuitability)
 {
+  if (currentSuitability == TempSuitability::JustRight)
+  {
+    digitalWrite(_proportioningValvePowerPin, RELAY_LOW);
+  }
+  else
+  {
+    if (currentSuitability == TempSuitability::TooCold)
+    {
+      digitalWrite(_proportioningValveDirectionPin, RELAY_HIGH);
+    }
+    else
+    {
+      digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
+    }
+
+    digitalWrite(_proportioningValvePowerPin, RELAY_HIGH);
+  }
 }

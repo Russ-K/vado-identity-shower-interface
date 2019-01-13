@@ -58,7 +58,7 @@ class Mixer
     #define RELAY_LOW HIGH
 
     static const float ALLOWABLE_TEMP_DIFFERENTIAL;
-    void ChangeTemp(bool makeColder);
+    void ChangeTemp(TempSuitability currentSuitability);
 };
 
 #endif
