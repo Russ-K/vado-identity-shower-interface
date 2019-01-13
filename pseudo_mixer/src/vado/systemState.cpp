@@ -11,14 +11,14 @@ ControllerState::ControllerState()
 {
 }
 
-ControllerState::ControllerState(bool valid, uint8_t power, int8_t temp, uint8_t flow, uint8_t isMainOutlet)
+ControllerState::ControllerState(bool valid, uint8_t power, int8_t temp, uint8_t flow, uint8_t outlet)
 {
     _isValid = valid;
 
     _power = power;
     _temperature = temp;
     _flow = flow;
-    _outlet = isMainOutlet;
+    _outlet = outlet;
 }
 
 ControllerState::ControllerState(const ControllerState& toCopy)
