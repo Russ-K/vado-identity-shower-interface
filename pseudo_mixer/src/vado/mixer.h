@@ -49,6 +49,8 @@ class Mixer
     //so use these values to reverse the signal without making the code confusing
     #define RELAY_HIGH LOW
     #define RELAY_LOW HIGH
+
+    static const float ALLOWABLE_TEMP_DIFFERENTIAL;
 };
 
 #endif
