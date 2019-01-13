@@ -17,6 +17,7 @@ Mixer::Mixer(int powerPin, ThermistorParams thermistorParams)
 {
   _powerPin = powerPin;
   pinMode(_powerPin, OUTPUT);
+  digitalWrite(_powerPin, LOW); //default power off
 
   _temperatureSensor.Init(thermistorParams);
 }
