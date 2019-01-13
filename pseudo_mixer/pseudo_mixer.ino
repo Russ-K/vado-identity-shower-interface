@@ -51,8 +51,9 @@ const int THERMISTOR_POWER_PIN = 2;
 const int THERMISTOR_PIN = A0;
 
 //Proportioning Valve Pins
-const int PROPORTIONING_VALVE_POWER_PIN = 4;
-const int PROPORTIONING_VALVE_DIRECTION_PIN = 5;
+const int PROPORTIONING_VALVE_POWER_PIN = 5;
+const int PROPORTIONING_VALVE_DIRECTION_PIN = 6;
+
 //Pins
 /////////////////////////////////////////////////////////////////
 
