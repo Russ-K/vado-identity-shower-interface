@@ -50,6 +50,9 @@ const int POWER_PIN = 3;
 const int THERMISTOR_POWER_PIN = 2;
 const int THERMISTOR_PIN = A0;
 
+//Solenoid Valve Pins
+const int SOLENOID_SELECTION_PIN = 4;
+
 //Proportioning Valve Pins
 const int PROPORTIONING_VALVE_POWER_PIN = 5;
 const int PROPORTIONING_VALVE_DIRECTION_PIN = 6;
@@ -60,7 +63,7 @@ const int PROPORTIONING_VALVE_DIRECTION_PIN = 6;
 
 Controller controller;
 ThermistorParams thermistorParams(THERMISTOR_PIN, 3435, 9940, THERMISTOR_POWER_PIN);
-Mixer mixer(POWER_PIN, PROPORTIONING_VALVE_POWER_PIN, PROPORTIONING_VALVE_DIRECTION_PIN, thermistorParams);
+Mixer mixer(POWER_PIN, SOLENOID_SELECTION_PIN, PROPORTIONING_VALVE_POWER_PIN, PROPORTIONING_VALVE_DIRECTION_PIN, thermistorParams);
 
 void setup() {
   Serial.begin(baudRate, serialConfig);

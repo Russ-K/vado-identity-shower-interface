@@ -13,11 +13,15 @@ const byte Mixer::MSG_PREPARING[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB3};
 const byte Mixer::MSG_HEARTBEAT[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D}; //it might be that this should be the current mixer water temperature
 const byte Mixer::MSG_READY[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
 
-Mixer::Mixer(int powerPin, int proportioningValvePowerPin, int proportioningValveDirectionPin, ThermistorParams thermistorParams)
+Mixer::Mixer(int powerPin, int solenoidSelectionPin, int proportioningValvePowerPin, int proportioningValveDirectionPin, ThermistorParams thermistorParams)
 {
   _powerPin = powerPin;
   pinMode(_powerPin, OUTPUT);
   digitalWrite(_powerPin, RELAY_LOW); //default power off
+
+  _solenoidSelectionPin = solenoidSelectionPin;
+  pinMode(_solenoidSelectionPin, OUTPUT);
+  digitalWrite(_solenoidSelectionPin, RELAY_LOW);
 
   _proportioningValvePowerPin = proportioningValvePowerPin;
   pinMode(_proportioningValvePowerPin, OUTPUT);

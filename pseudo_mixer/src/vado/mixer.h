@@ -14,13 +14,14 @@
 class Mixer
 {
   public:
-    Mixer(int powerPin, int proportioningValvePowerPin, int proportioningValveDirectionPin, ThermistorParams thermistorParams);
+    Mixer(int powerPin, int solenoidSelectionPin, int proportioningValvePowerPin, int proportioningValveDirectionPin, ThermistorParams thermistorParams);
     bool GetResponse(ControllerState& controllerState, byte setMsg[]);
     void UpdateSystemState(ControllerState& controllerState);
     void Process();
     
   private:
     int _powerPin = 0;
+    int _solenoidSelectionPin = 0;
     int _proportioningValvePowerPin = 0;
     int _proportioningValveDirectionPin = 0;
 
