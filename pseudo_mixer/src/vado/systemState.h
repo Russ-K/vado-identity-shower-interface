@@ -29,7 +29,7 @@ class ControllerState
     //Flow
     const uint8_t flow() { return isValid() ? _flow : FLOW_MIN; }
     //Outlet
-    const uint8_t isMainOutlet() { return isValid() ? _outlet : OUTLET_DEFAULT; }
+    const bool isMainOutlet() { return isValid() ? _outlet == OUTLET_DEFAULT : true; }
   private:
     bool _isValid = false;
 
