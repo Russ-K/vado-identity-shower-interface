@@ -50,6 +50,8 @@ class Mixer
       TooHot
     };
 
+    static TempSuitability EvaluateTempSuitability(int requiredTemp, float currentTemp);
+
     //relays used switch on (leds lit) with a LOW signal
     //so use these values to reverse the signal without making the code confusing
     #define RELAY_HIGH LOW

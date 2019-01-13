@@ -95,8 +95,19 @@ void Mixer::Process()
     if (_targetTemperature > currentTemp) //we're too cold
     {
     }
-    else if (_targetTemperature < currentTemp) //we're too hot
-    {
-    }
   }
+}
+
+Mixer::TempSuitability Mixer::EvaluateTempSuitability(int requiredTemp, float currentTemp)
+{
+  if (currentTemp < (requiredTemp - ALLOWABLE_TEMP_DIFFERENTIAL))
+    {
+    return TempSuitability::TooCold;
+    }
+  else if (currentTemp > (requiredTemp + ALLOWABLE_TEMP_DIFFERENTIAL))
+  {
+    return TempSuitability::TooHot;
+  }
+
+  return TempSuitability::JustRight;
 }
