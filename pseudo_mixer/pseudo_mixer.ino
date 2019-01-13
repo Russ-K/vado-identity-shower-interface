@@ -49,13 +49,17 @@ const int POWER_PIN = 3;
 //Thermistor Pins
 const int THERMISTOR_POWER_PIN = 2;
 const int THERMISTOR_PIN = A0;
+
+//Proportioning Valve Pins
+const int PROPORTIONING_VALVE_POWER_PIN = 4;
+const int PROPORTIONING_VALVE_DIRECTION_PIN = 5;
 //Pins
 /////////////////////////////////////////////////////////////////
 
 
 Controller controller;
 ThermistorParams thermistorParams(THERMISTOR_PIN, 3435, 9940, THERMISTOR_POWER_PIN);
-Mixer mixer(POWER_PIN, thermistorParams);
+Mixer mixer(POWER_PIN, PROPORTIONING_VALVE_POWER_PIN, PROPORTIONING_VALVE_DIRECTION_PIN, thermistorParams);
 
 void setup() {
   Serial.begin(baudRate, serialConfig);

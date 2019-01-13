@@ -13,11 +13,19 @@ const byte Mixer::MSG_PREPARING[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB3};
 const byte Mixer::MSG_HEARTBEAT[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D}; //it might be that this should be the current mixer water temperature
 const byte Mixer::MSG_READY[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
 
-Mixer::Mixer(int powerPin, ThermistorParams thermistorParams)
+Mixer::Mixer(int powerPin, int proportioningValvePowerPin, int proportioningValveDirectionPin, ThermistorParams thermistorParams)
 {
   _powerPin = powerPin;
   pinMode(_powerPin, OUTPUT);
   digitalWrite(_powerPin, LOW); //default power off
+
+  _proportioningValvePowerPin = proportioningValvePowerPin;
+  pinMode(_proportioningValvePowerPin, OUTPUT);
+  digitalWrite(_proportioningValvePowerPin, LOW); //default power off
+
+  _proportioningValveDirectionPin = proportioningValveDirectionPin;
+  pinMode(_proportioningValveDirectionPin, OUTPUT);
+  digitalWrite(_proportioningValveDirectionPin, LOW);
 
   _temperatureSensor.Init(thermistorParams);
 }
@@ -32,6 +40,8 @@ void Mixer::UpdateSystemState(ControllerState& controllerState)
 {
   _isOn = controllerState.isOn();
   digitalWrite(_powerPin, _isOn ? HIGH : LOW);
+  Serial.print("UpdateSystemState, isOn: ");
+  Serial.println(_isOn ? HIGH : LOW);
 }
 
 char Mixer::CalcResponse(ControllerState& controllerState)
