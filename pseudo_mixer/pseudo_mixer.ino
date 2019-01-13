@@ -101,7 +101,7 @@ void PrintData(ControllerState& newState) {
   Serial.print("Flow is ");
   Serial.println(newState.flow());
   Serial.print("Outlet is ");
-  Serial.println(newState.isMainOutlet());
+  Serial.println(newState.isMainOutlet() ? "main" : "alternative");
   Serial.println("");
 }
 
