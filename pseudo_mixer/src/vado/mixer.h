@@ -75,6 +75,7 @@ class Mixer
     static const long MAX_ERRORED_READS = 5;
     long erroredReads = 0;
     bool ShouldFailsafe();
+    bool IsInFailureTimeout();
 
     static const unsigned long FAILURE_BACKOFF_TIME = 10000;
     long unsigned failureTimeout = millis();

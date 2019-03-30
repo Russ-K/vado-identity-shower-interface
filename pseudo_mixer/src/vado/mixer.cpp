@@ -88,7 +88,7 @@ char Mixer::CalcResponse(ControllerState& controllerState)
 
 const void Mixer::SetMessage(char required, byte setMsg[])
 {
-  if (failureTimeout > millis())
+  if (IsInFailureTimeout())
   {
     required = ERROR;
     Serial.println("Failure - in failure timeout");
@@ -139,6 +139,11 @@ void Mixer::Process(byte setMsg[])
 bool Mixer::ShouldFailsafe()
 {
   return (erroredReads > MAX_ERRORED_READS) || (lastUpdate < millis() - MAX_FAILED_READ_TIME);
+}
+
+bool Mixer::IsInFailureTimeout()
+{
+  return failureTimeout > millis();
 }
 
 float Mixer::SmoothTemp(float currentTemp)
