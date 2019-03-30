@@ -122,7 +122,7 @@ void Mixer::Process(byte setMsg[])
     ControllerState controllerState(true, POWER_OFF, TEMP_MIN, FLOW_MIN, OUTLET_DEFAULT);
     UpdateSystemState(controllerState);
     _curMsg = ERROR;
-    failureTimeout = millis() + FAILURE_BACKOFF_TIME;
+    failureTimeout = millis();
     Serial.println("Failure - extending failure timeout");
   }
 
@@ -143,7 +143,7 @@ bool Mixer::ShouldFailsafe()
 
 bool Mixer::IsInFailureTimeout()
 {
-  return failureTimeout > millis();
+  return millis() - failureTimeout <= FAILURE_BACKOFF_TIME;
 }
 
 float Mixer::SmoothTemp(float currentTemp)

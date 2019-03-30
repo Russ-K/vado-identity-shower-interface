@@ -83,7 +83,7 @@ void loop()
 
 void SendData(byte sendMsg[]) {
   curMicros = micros();
-  if ((curMicros > (lastCom + comPeriod)) || (curMicros < lastCom)) {
+  if ((curMicros - lastCom > comPeriod) || (curMicros < lastCom)) {
     lastCom = curMicros;
     Serial1.write(sendMsg, MSG_LEN);
   }
