@@ -38,11 +38,13 @@ class Mixer
     static const byte MSG_PREPARING[MSG_LEN];
     static const byte MSG_HEARTBEAT[MSG_LEN]; //it might be that this should be the current mixer water temperature
     static const byte MSG_READY[MSG_LEN];
+    static const byte MSG_ERROR[MSG_LEN];
     //Outgoing message types
     static const char INTRO = 0;
     static const char PREPARING = 2;
     static const char HEARTBEAT = 3;
     static const char READY = 4;
+    static const char ERROR = 5;
 
     TemperatureSensor _temperatureSensor;
     enum TempSuitability {
@@ -68,8 +70,11 @@ class Mixer
 
     //if the controller is disconnected or fails,
     //these values will control how fast the system failsafes
+    static const unsigned long MAX_FAILED_READ_TIME = 1000;
     long unsigned lastUpdate = 0;
+    static const long MAX_ERRORED_READS = 1;
     long erroredReads = 0;
+    bool ShouldFailsafe();
 
     Controller controller;
     void PrintData(ControllerState& newState);

@@ -98,6 +98,10 @@ const void Mixer::SetMessage(char required, byte setMsg[])
     case PREPARING:
       memcpy(setMsg, Mixer::MSG_PREPARING, MSG_LEN);
       break;
+    case ERROR:
+      //use the intro message until a proper error message is known
+      memcpy(setMsg, Mixer::MSG_INTRO, MSG_LEN);
+      break;
     case INTRO:
     default:
       memcpy(setMsg, Mixer::MSG_INTRO, MSG_LEN);
@@ -107,6 +111,13 @@ const void Mixer::SetMessage(char required, byte setMsg[])
 
 void Mixer::Process(byte setMsg[])
 {
+  if (ShouldFailsafe())
+  {
+    ControllerState controllerState(true, POWER_OFF, TEMP_MIN, FLOW_MIN, OUTLET_DEFAULT);
+    UpdateSystemState(controllerState);
+    _curMsg = ERROR;
+  }
+
   SetMessage(_curMsg, setMsg);
 
   if (_isOn)
@@ -115,6 +126,11 @@ void Mixer::Process(byte setMsg[])
     Mixer::TempSuitability currentSuitability = EvaluateTempSuitability(_targetTemperature, smoothTemp);
     ChangeTemp(currentSuitability);
   }
+}
+
+bool Mixer::ShouldFailsafe()
+{
+  return (erroredReads > MAX_ERRORED_READS) || (lastUpdate < millis() - MAX_FAILED_READ_TIME);
 }
 
 float Mixer::SmoothTemp(float currentTemp)
