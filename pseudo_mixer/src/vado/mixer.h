@@ -66,7 +66,7 @@ class Mixer
 
     //functionality to smooth out minor variations in the temp reading
     static const int SMOOTHING_ARR_SIZE = 10;
-    float tempSmoothingArr[SMOOTHING_ARR_SIZE] = {0, 0, 0};
+    float tempSmoothingArr[SMOOTHING_ARR_SIZE] = {};
     float SmoothTemp(float currentTemp);
 
     //if the controller is disconnected or fails,
