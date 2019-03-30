@@ -52,7 +52,7 @@ bool Mixer::UpdateSystemState(const byte data [MSG_LEN])
   else
     ++erroredReads;
 
-    _curMsg = CalcResponse(requestedState);
+  _curMsg = CalcResponse(requestedState);
 }
 
 void Mixer::UpdateSystemState(ControllerState& controllerState)
