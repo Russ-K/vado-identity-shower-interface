@@ -97,7 +97,8 @@ void Mixer::Process()
 {
   if (_isOn)
   {
-    Mixer::TempSuitability currentSuitability = EvaluateTempSuitability(_targetTemperature, _temperatureSensor.GetCurrentTemp());
+    float smoothTemp = SmoothTemp(_temperatureSensor.GetCurrentTemp());
+    Mixer::TempSuitability currentSuitability = EvaluateTempSuitability(_targetTemperature, smoothTemp);
     ChangeTemp(currentSuitability);
   }
 }
