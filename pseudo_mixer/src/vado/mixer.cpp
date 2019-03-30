@@ -49,7 +49,7 @@ void Mixer::UpdateSystemState(ControllerState& controllerState)
 
   if (_isOn)
   {
-    digitalWrite(_solenoidSelectionPin, controllerState.isMainOutlet() ? RELAY_HIGH : RELAY_LOW);
+    digitalWrite(_solenoidSelectionPin, controllerState.isMainOutlet() ? RELAY_LOW : RELAY_HIGH);
     _targetTemperature = controllerState.temp();
   }
   else
@@ -121,16 +121,17 @@ void Mixer::ChangeTemp(TempSuitability currentSuitability)
   if (currentSuitability == TempSuitability::JustRight)
   {
     digitalWrite(_proportioningValvePowerPin, RELAY_LOW);
+    digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
   }
   else
   {
     if (currentSuitability == TempSuitability::TooCold)
     {
-      digitalWrite(_proportioningValveDirectionPin, RELAY_HIGH);
+      digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
     }
     else
     {
-      digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
+      digitalWrite(_proportioningValveDirectionPin, RELAY_HIGH);
     }
 
     digitalWrite(_proportioningValvePowerPin, RELAY_HIGH);
