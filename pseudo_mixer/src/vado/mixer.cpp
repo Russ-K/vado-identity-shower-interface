@@ -88,6 +88,12 @@ char Mixer::CalcResponse(ControllerState& controllerState)
 
 const void Mixer::SetMessage(char required, byte setMsg[])
 {
+  if (failureTimeout > millis())
+  {
+    required = ERROR;
+    Serial.println("Failure - in failure timeout");
+  }
+
   switch(required) {
     case HEARTBEAT:
       memcpy(setMsg, Mixer::MSG_HEARTBEAT, MSG_LEN);
@@ -116,6 +122,8 @@ void Mixer::Process(byte setMsg[])
     ControllerState controllerState(true, POWER_OFF, TEMP_MIN, FLOW_MIN, OUTLET_DEFAULT);
     UpdateSystemState(controllerState);
     _curMsg = ERROR;
+    failureTimeout = millis() + FAILURE_BACKOFF_TIME;
+    Serial.println("Failure - extending failure timeout");
   }
 
   SetMessage(_curMsg, setMsg);

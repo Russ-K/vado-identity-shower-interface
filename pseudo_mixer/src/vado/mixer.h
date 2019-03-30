@@ -76,6 +76,9 @@ class Mixer
     long erroredReads = 0;
     bool ShouldFailsafe();
 
+    static const unsigned long FAILURE_BACKOFF_TIME = 10000;
+    long unsigned failureTimeout = millis();
+
     Controller controller;
     void PrintData(ControllerState& newState);
 };
