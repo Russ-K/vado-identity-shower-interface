@@ -38,6 +38,7 @@ Mixer::Mixer(int powerPin, int solenoidSelectionPin, int proportioningValvePower
 
 bool Mixer::UpdateSystemState(const byte data [MSG_LEN])
 {
+  lastUpdate = millis();
     ControllerState requestedState = controller.parse(data);
     if (requestedState.isValid()) {
       if (controller.StateChanged(requestedState)) {
@@ -45,7 +46,10 @@ bool Mixer::UpdateSystemState(const byte data [MSG_LEN])
         PrintData(requestedState);
         UpdateSystemState(requestedState);
       }
+    erroredReads = 0;
     }
+  else
+    ++erroredReads;
 
     _curMsg = CalcResponse(requestedState);
 }

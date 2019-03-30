@@ -66,6 +66,11 @@ class Mixer
     float tempSmoothingArr[SMOOTHING_ARR_SIZE] = {0, 0, 0};
     float SmoothTemp(float currentTemp);
 
+    //if the controller is disconnected or fails,
+    //these values will control how fast the system failsafes
+    long unsigned lastUpdate = 0;
+    long erroredReads = 0;
+
     Controller controller;
     void PrintData(ControllerState& newState);
 };
