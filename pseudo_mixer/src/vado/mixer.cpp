@@ -119,11 +119,12 @@ void Mixer::Process(byte setMsg[])
 {
   if (ShouldFailsafe())
   {
-    ControllerState controllerState(true, POWER_OFF, TEMP_MIN, FLOW_MIN, OUTLET_DEFAULT);
-    UpdateSystemState(controllerState);
-    _curMsg = ERROR;
-    failureTimeout = millis();
     Serial.println("Failure - extending failure timeout");
+    failureTimeout = millis();
+    ControllerState controllerState(true, POWER_OFF, TEMP_MIN, FLOW_MIN, OUTLET_DEFAULT);
+    _curMsg = ERROR;
+
+    UpdateSystemState(controllerState);
   }
 
   SetMessage(_curMsg, setMsg);
