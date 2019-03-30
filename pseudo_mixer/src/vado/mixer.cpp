@@ -36,7 +36,7 @@ Mixer::Mixer(int powerPin, int solenoidSelectionPin, int proportioningValvePower
   _temperatureSensor.Init(thermistorParams);
 }
 
-bool Mixer::GetResponse(const byte data [MSG_LEN], byte setMsg[])
+bool Mixer::UpdateSystemState(const byte data [MSG_LEN], byte setMsg[])
 {
     ControllerState requestedState = controller.parse(data);
     if (requestedState.isValid()) {

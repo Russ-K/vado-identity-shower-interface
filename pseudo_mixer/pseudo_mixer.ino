@@ -73,7 +73,7 @@ void setup() {
 void loop()
 {
   if (ReadData()) {
-    mixer.GetResponse(receivedData, message);
+    mixer.UpdateSystemState(receivedData, message);
   }
 
   mixer.Process();
