@@ -102,6 +102,29 @@ void Mixer::Process()
   }
 }
 
+float Mixer::SmoothTemp(float currentTemp)
+{
+  float smoothedTemp = 0;
+  for (int i = 0; i < (SMOOTHING_ARR_SIZE - 1); ++i)
+  {
+    tempSmoothingArr[i] = tempSmoothingArr[i + 1];
+    smoothedTemp += tempSmoothingArr[i];
+  }
+  tempSmoothingArr[SMOOTHING_ARR_SIZE - 1] = currentTemp;
+  smoothedTemp += currentTemp;
+
+  smoothedTemp /= SMOOTHING_ARR_SIZE;
+
+  Serial.print("Smoothed Temperature "); 
+  Serial.print(smoothedTemp);
+  Serial.print(" *C");
+  Serial.print(" - Real Temperature "); 
+  Serial.print(currentTemp);
+  Serial.println(" *C");
+
+  return smoothedTemp;
+}
+
 Mixer::TempSuitability Mixer::EvaluateTempSuitability(int requiredTemp, float currentTemp)
 {
   if (currentTemp < (requiredTemp - ALLOWABLE_TEMP_DIFFERENTIAL))
