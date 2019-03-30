@@ -40,19 +40,23 @@ Mixer::Mixer(int powerPin, int solenoidSelectionPin, int proportioningValvePower
 bool Mixer::UpdateSystemState(const byte data [MSG_LEN])
 {
   lastUpdate = millis();
-  ControllerState requestedState = controller.parse(data);
-  if (requestedState.isValid()) {
-    if (controller.StateChanged(requestedState)) {
-      controller.SetState(requestedState);
-      PrintData(requestedState);
-      UpdateSystemState(requestedState);
-    }
-    erroredReads = 0;
-  }
-  else
-    ++erroredReads;
 
-  _curMsg = CalcResponse(requestedState);
+  if (!IsInFailureTimeout())
+  {
+    ControllerState requestedState = controller.parse(data);
+    if (requestedState.isValid()) {
+      if (controller.StateChanged(requestedState)) {
+        controller.SetState(requestedState);
+        PrintData(requestedState);
+        UpdateSystemState(requestedState);
+      }
+      erroredReads = 0;
+    }
+    else
+      ++erroredReads;
+
+    _curMsg = CalcResponse(requestedState);
+  }  
 }
 
 void Mixer::UpdateSystemState(ControllerState& controllerState)
