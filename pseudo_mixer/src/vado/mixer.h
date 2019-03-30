@@ -8,6 +8,7 @@
 
 #include "Arduino.h"
 #include "constants.h"
+#include "controller.h"
 #include "systemState.h"
 #include "temperature_sensor.h"
 
@@ -15,7 +16,7 @@ class Mixer
 {
   public:
     Mixer(int powerPin, int solenoidSelectionPin, int proportioningValvePowerPin, int proportioningValveDirectionPin, ThermistorParams thermistorParams);
-    bool GetResponse(ControllerState& controllerState, byte setMsg[]);
+    bool GetResponse(const byte data [MSG_LEN], byte setMsg[]);
     void UpdateSystemState(ControllerState& controllerState);
     void Process();
     
@@ -64,6 +65,9 @@ class Mixer
     static const int SMOOTHING_ARR_SIZE = 10;
     float tempSmoothingArr[SMOOTHING_ARR_SIZE] = {0, 0, 0};
     float SmoothTemp(float currentTemp);
+
+    Controller controller;
+    void PrintData(ControllerState& newState);
 };
 
 #endif

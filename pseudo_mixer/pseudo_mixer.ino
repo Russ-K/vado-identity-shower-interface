@@ -1,4 +1,3 @@
-#include "src/vado/controller.h"
 #include "src/vado/mixer.h"
 #include "src/vado/thermistor_params.h"
 
@@ -61,7 +60,6 @@ const int PROPORTIONING_VALVE_DIRECTION_PIN = 6;
 /////////////////////////////////////////////////////////////////
 
 
-Controller controller;
 ThermistorParams thermistorParams(THERMISTOR_PIN, 3435, 9940, THERMISTOR_POWER_PIN);
 Mixer mixer(POWER_PIN, SOLENOID_SELECTION_PIN, PROPORTIONING_VALVE_POWER_PIN, PROPORTIONING_VALVE_DIRECTION_PIN, thermistorParams);
 
@@ -75,34 +73,12 @@ void setup() {
 void loop()
 {
   if (ReadData()) {
-    ControllerState requestedState = controller.parse(receivedData);
-    if (requestedState.isValid()) {
-      if (controller.StateChanged(requestedState)) {
-        controller.SetState(requestedState);
-        PrintData(requestedState);
-        mixer.UpdateSystemState(requestedState);
-      }
-    }
-    mixer.GetResponse(requestedState, message);
+    mixer.GetResponse(receivedData, message);
   }
 
   mixer.Process();
 
   SendData(message);
-}
-
-void PrintData(ControllerState& newState) {
-  Serial.println("State changed");
-  Serial.print("Power is ");
-  Serial.println(newState.isOn() ? "on" : newState.isPaused() ? "paused" : "off");
-  
-  Serial.print("Temp is ");
-  Serial.println(newState.temp());
-  Serial.print("Flow is ");
-  Serial.println(newState.flow());
-  Serial.print("Outlet is ");
-  Serial.println(newState.isMainOutlet() ? "main" : "alternative");
-  Serial.println("");
 }
 
 void SendData(byte sendMsg[]) {

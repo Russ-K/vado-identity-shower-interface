@@ -36,9 +36,18 @@ Mixer::Mixer(int powerPin, int solenoidSelectionPin, int proportioningValvePower
   _temperatureSensor.Init(thermistorParams);
 }
 
-bool Mixer::GetResponse(ControllerState& controllerState, byte setMsg[])
+bool Mixer::GetResponse(const byte data [MSG_LEN], byte setMsg[])
 {
-    _curMsg = CalcResponse(controllerState);
+    ControllerState requestedState = controller.parse(data);
+    if (requestedState.isValid()) {
+      if (controller.StateChanged(requestedState)) {
+        controller.SetState(requestedState);
+        PrintData(requestedState);
+        UpdateSystemState(requestedState);
+      }
+    }
+
+    _curMsg = CalcResponse(requestedState);
     SetMessage(_curMsg, setMsg);
 }
 
@@ -160,4 +169,19 @@ void Mixer::ChangeTemp(TempSuitability currentSuitability)
 
     digitalWrite(_proportioningValvePowerPin, RELAY_HIGH);
   }
+}
+
+void Mixer::PrintData(ControllerState& newState)
+{
+  Serial.println("State changed");
+  Serial.print("Power is ");
+  Serial.println(newState.isOn() ? "on" : newState.isPaused() ? "paused" : "off");
+  
+  Serial.print("Temp is ");
+  Serial.println(newState.temp());
+  Serial.print("Flow is ");
+  Serial.println(newState.flow());
+  Serial.print("Outlet is ");
+  Serial.println(newState.isMainOutlet() ? "main" : "alternative");
+  Serial.println("");
 }
