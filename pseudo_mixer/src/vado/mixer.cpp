@@ -144,7 +144,21 @@ void Mixer::Process(byte setMsg[])
 
 bool Mixer::ShouldFailsafe()
 {
-  return (erroredReads > MAX_ERRORED_READS) || (millis() - lastUpdate >= MAX_FAILED_READ_TIME);
+  bool failsafe = false;
+  if (erroredReads > MAX_ERRORED_READS)
+  {
+    Serial.print("Over max read errors - ");
+    Serial.println(erroredReads);
+    failsafe = true;
+  }
+  if (millis() - lastUpdate >= MAX_FAILED_READ_TIME)
+  {
+    Serial.print("No controller input for ");
+    Serial.print(millis() - lastUpdate);
+    Serial.println(" ms");
+    failsafe = true;
+  }
+  return failsafe;
 }
 
 bool Mixer::IsInFailureTimeout()
