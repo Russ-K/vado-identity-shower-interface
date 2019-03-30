@@ -12,6 +12,7 @@ const byte Mixer::MSG_INTRO[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 const byte Mixer::MSG_PREPARING[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB3};
 const byte Mixer::MSG_HEARTBEAT[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D}; //it might be that this should be the current mixer water temperature
 const byte Mixer::MSG_READY[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB1};
+const byte Mixer::MSG_ERROR[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; //use the intro message until a proper error message is known
 
 const float Mixer::ALLOWABLE_TEMP_DIFFERENTIAL = 0.5;
 
@@ -105,8 +106,7 @@ const void Mixer::SetMessage(char required, byte setMsg[])
       memcpy(setMsg, Mixer::MSG_PREPARING, MSG_LEN);
       break;
     case ERROR:
-      //use the intro message until a proper error message is known
-      memcpy(setMsg, Mixer::MSG_INTRO, MSG_LEN);
+      memcpy(setMsg, Mixer::MSG_ERROR, MSG_LEN);
       break;
     case INTRO:
     default:
