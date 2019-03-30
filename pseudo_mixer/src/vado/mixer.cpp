@@ -122,6 +122,7 @@ void Mixer::Process(byte setMsg[])
     Serial.println("Failure - extending failure timeout");
     failureTimeout = millis();
     ControllerState controllerState(true, POWER_OFF, TEMP_MIN, FLOW_MIN, OUTLET_DEFAULT);
+    erroredReads = 0;
     _curMsg = ERROR;
 
     UpdateSystemState(controllerState);
