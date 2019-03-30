@@ -38,7 +38,6 @@ class Mixer
     static const byte MSG_PREPARING[MSG_LEN];
     static const byte MSG_HEARTBEAT[MSG_LEN]; //it might be that this should be the current mixer water temperature
     static const byte MSG_READY[MSG_LEN];
-    static const byte MSG_ERROR[MSG_LEN];
     //Outgoing message types
     static const char INTRO = 0;
     static const char PREPARING = 2;
