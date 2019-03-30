@@ -36,7 +36,7 @@ Mixer::Mixer(int powerPin, int solenoidSelectionPin, int proportioningValvePower
   _temperatureSensor.Init(thermistorParams);
 }
 
-bool Mixer::UpdateSystemState(const byte data [MSG_LEN], byte setMsg[])
+bool Mixer::UpdateSystemState(const byte data [MSG_LEN])
 {
     ControllerState requestedState = controller.parse(data);
     if (requestedState.isValid()) {
@@ -48,7 +48,6 @@ bool Mixer::UpdateSystemState(const byte data [MSG_LEN], byte setMsg[])
     }
 
     _curMsg = CalcResponse(requestedState);
-    SetMessage(_curMsg, setMsg);
 }
 
 void Mixer::UpdateSystemState(ControllerState& controllerState)
@@ -102,8 +101,10 @@ const void Mixer::SetMessage(char required, byte setMsg[])
   }
 }
 
-void Mixer::Process()
+void Mixer::Process(byte setMsg[])
 {
+  SetMessage(_curMsg, setMsg);
+
   if (_isOn)
   {
     float smoothTemp = SmoothTemp(_temperatureSensor.GetCurrentTemp());

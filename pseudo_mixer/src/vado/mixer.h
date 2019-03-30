@@ -16,9 +16,9 @@ class Mixer
 {
   public:
     Mixer(int powerPin, int solenoidSelectionPin, int proportioningValvePowerPin, int proportioningValveDirectionPin, ThermistorParams thermistorParams);
-    bool UpdateSystemState(const byte data [MSG_LEN], byte setMsg[]);
+    bool UpdateSystemState(const byte data [MSG_LEN]);
     void UpdateSystemState(ControllerState& controllerState);
-    void Process();
+    void Process(byte setMsg[]);
     
   private:
     int _powerPin = 0;
