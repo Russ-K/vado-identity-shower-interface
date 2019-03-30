@@ -138,7 +138,7 @@ void Mixer::Process(byte setMsg[])
 
 bool Mixer::ShouldFailsafe()
 {
-  return (erroredReads > MAX_ERRORED_READS) || (lastUpdate < millis() - MAX_FAILED_READ_TIME);
+  return (erroredReads > MAX_ERRORED_READS) || (millis() - lastUpdate >= MAX_FAILED_READ_TIME);
 }
 
 bool Mixer::IsInFailureTimeout()
