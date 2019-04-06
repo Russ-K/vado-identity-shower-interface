@@ -71,9 +71,9 @@ class Mixer
 
     //if the controller is disconnected or fails,
     //these values will control how fast the system failsafes
-    static const unsigned long MAX_FAILED_READ_TIME = 1000;
+    static const unsigned long MAX_FAILED_READ_TIME = 5000;
     long unsigned lastUpdate = 0;
-    static const long MAX_ERRORED_READS = 5;
+    static const long MAX_ERRORED_READS = 25;
     long erroredReads = 0;
     bool ShouldFailsafe();
     bool IsInFailureTimeout();
