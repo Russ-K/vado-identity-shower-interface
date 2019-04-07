@@ -20,6 +20,8 @@ class Mixer
     void Process(byte setMsg[]);
     
   private:
+    Controller controller;
+
     int _powerPin = 0;
     int _solenoidSelectionPin = 0;
     int _proportioningValvePowerPin = 0;
@@ -33,6 +35,8 @@ class Mixer
     const void SetMessage(char required, byte setMsg[]);
     
     void UpdateSystemState(ControllerState& controllerState);
+    
+    void PrintData(ControllerState& newState);
 
     //Outgoing messages
     static const byte MSG_INTRO[MSG_LEN];
@@ -83,9 +87,6 @@ class Mixer
     static const unsigned long FAILURE_BACKOFF_TIME = 10000;
     long unsigned failureTimeout = millis();
     bool IsInFailureTimeout() { return millis() - failureTimeout <= FAILURE_BACKOFF_TIME; }
-
-    Controller controller;
-    void PrintData(ControllerState& newState);
 };
 
 #endif
