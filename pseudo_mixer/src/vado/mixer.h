@@ -63,6 +63,7 @@ class Mixer
     #define RELAY_LOW HIGH
 
     void ChangeTemp(TempSuitability currentSuitability);
+    void StopTempAdjustment();
 
     //functionality to smooth out minor variations in the temp reading
     static const int SMOOTHING_ARR_SIZE = 10;

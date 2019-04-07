@@ -207,8 +207,7 @@ void Mixer::ChangeTemp(TempSuitability currentSuitability)
 {
   if (currentSuitability == TempSuitability::JustRight)
   {
-    digitalWrite(_proportioningValvePowerPin, RELAY_LOW);
-    digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
+    StopTempAdjustment();
   }
   else
   {
@@ -223,6 +222,12 @@ void Mixer::ChangeTemp(TempSuitability currentSuitability)
 
     digitalWrite(_proportioningValvePowerPin, RELAY_HIGH);
   }
+}
+
+void Mixer::StopTempAdjustment()
+{
+  digitalWrite(_proportioningValvePowerPin, RELAY_LOW);
+  digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
 }
 
 void Mixer::PrintData(ControllerState& newState)
