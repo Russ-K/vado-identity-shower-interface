@@ -87,6 +87,17 @@ class Mixer
     static const unsigned long FAILURE_BACKOFF_TIME = 10000;
     long unsigned failureTimeout = millis();
     bool IsInFailureTimeout() { return millis() - failureTimeout <= FAILURE_BACKOFF_TIME; }
+
+    //Adjustment timing - Adjust for ADJUSTMENT_DURATION
+    static const unsigned long ADJUSTMENT_DURATION = 1000;
+    unsigned long adjustStartTime = millis();
+    bool adjustingTemp = false;
+    bool IsInTempAdjusment() { return millis() - adjustStartTime <= ADJUSTMENT_DURATION; }
+    
+    //Adjustment Timeout - Wait for ADJUSTMENT_WAIT_DURATION for the adjustment to take effect
+    static const unsigned long ADJUSTMENT_WAIT_DURATION = 1000;
+    unsigned long tempWaitStart = millis();
+    bool IsInTempTimeout() { return millis() - tempWaitStart <= ADJUSTMENT_WAIT_DURATION; }
 };
 
 #endif

@@ -204,18 +204,35 @@ void Mixer::ChangeTemp(TempSuitability currentSuitability)
   {
     StopTempAdjustment();
   }
-  else
+  else if (!IsInTempTimeout())
   {
-    if (currentSuitability == TempSuitability::TooCold)
+    if (!adjustingTemp)
     {
-      digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
+      adjustStartTime = millis();
+      adjustingTemp = true;
     }
-    else
+    
+    if (adjustingTemp)
     {
-      digitalWrite(_proportioningValveDirectionPin, RELAY_HIGH);
-    }
+      if (!IsInTempAdjusment())
+      {
+        StopTempAdjustment();
+        tempWaitStart = millis();
+      }
+      else
+      {
+        if (currentSuitability == TempSuitability::TooCold)
+        {
+          digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
+        }
+        else
+        {
+          digitalWrite(_proportioningValveDirectionPin, RELAY_HIGH);
+        }
 
-    digitalWrite(_proportioningValvePowerPin, RELAY_HIGH);
+        digitalWrite(_proportioningValvePowerPin, RELAY_HIGH);
+      }
+    }
   }
 }
 
@@ -223,6 +240,7 @@ void Mixer::StopTempAdjustment()
 {
   digitalWrite(_proportioningValvePowerPin, RELAY_LOW);
   digitalWrite(_proportioningValveDirectionPin, RELAY_LOW);
+  adjustingTemp = false;
 }
 
 void Mixer::PrintData(ControllerState& newState)
