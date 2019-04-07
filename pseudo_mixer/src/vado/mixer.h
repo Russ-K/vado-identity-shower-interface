@@ -70,7 +70,7 @@ class Mixer
     void StopTempAdjustment();
 
     //functionality to smooth out minor variations in the temp reading
-    static const int SMOOTHING_ARR_SIZE = 10;
+    static const int SMOOTHING_ARR_SIZE = 5;
     float tempSmoothingArr[SMOOTHING_ARR_SIZE] = {};
     float SmoothTemp(float currentTemp);
 
