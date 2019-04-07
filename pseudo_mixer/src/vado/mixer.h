@@ -89,7 +89,7 @@ class Mixer
     bool IsInFailureTimeout() { return millis() - failureTimeout <= FAILURE_BACKOFF_TIME; }
 
     //Adjustment timing - Adjust for ADJUSTMENT_DURATION
-    static const unsigned long ADJUSTMENT_DURATION = 1000;
+    static const unsigned long ADJUSTMENT_DURATION = 500;
     unsigned long adjustStartTime = millis();
     bool adjustingTemp = false;
     bool IsInTempAdjusment() { return millis() - adjustStartTime <= ADJUSTMENT_DURATION; }
