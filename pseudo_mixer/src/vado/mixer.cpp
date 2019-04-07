@@ -161,11 +161,6 @@ bool Mixer::ShouldFailsafe()
   return failsafe;
 }
 
-bool Mixer::IsInFailureTimeout()
-{
-  return millis() - failureTimeout <= FAILURE_BACKOFF_TIME;
-}
-
 float Mixer::SmoothTemp(float currentTemp)
 {
   float smoothedTemp = 0;
