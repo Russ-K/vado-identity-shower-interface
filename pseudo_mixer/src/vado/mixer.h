@@ -78,6 +78,8 @@ class Mixer
     long erroredReads = 0;
     bool ShouldFailsafe();
 
+    //TIMEOUTS / TIMING
+    //Failsafe Timeout
     static const unsigned long FAILURE_BACKOFF_TIME = 10000;
     long unsigned failureTimeout = millis();
     bool IsInFailureTimeout() { return millis() - failureTimeout <= FAILURE_BACKOFF_TIME; }
